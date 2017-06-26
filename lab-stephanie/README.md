@@ -1,5 +1,3 @@
-![cf](https://i.imgur.com/7v5ASc8.png) lab 11 single resource express api
-======
 
 # To Submit this Assignment
   * fork this repository
@@ -17,7 +15,7 @@
   * how to install
   * how to start the server
   * document the routes
-* include a package.json 
+* include a package.json
   * have a lint script for running eslint
   * have a test script for running mocha
   * start script for running your server
@@ -29,7 +27,7 @@
  * lib
  * model
  * route
- * db 
+ * db
  * test
 * Create a HTTP Server using `express`
 * Create a Object Constructor using mongoose that creates a _resource_ with at least 3 properties
