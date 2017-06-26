@@ -2,12 +2,12 @@
 
 const Router = require('express').Router;
 const jsonParser = require('body-parser').json();
-const Animal = require('../model/note.js');
+const Animal = require('../model/animal.js');
 
 let animalRouter = module.exports = new Router();
 
 animalRouter.post('/api/animals', jsonParser, (req, res, next) => {
-  console.log('hit /apit/animals');
+  console.log('hit /api/animals');
 
   req.body.created = new Date();
 

@@ -3,7 +3,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
-mongoose.Prommise = Promise;
+mongoose.Promise = Promise;
 
 mongoose.connect(process.env.MONGODB_URI);
 
@@ -16,21 +16,21 @@ app.get('/api/hello', (req, res, next) => {
 
 app.use(require('../route/animal-router.js'));
 
-app.use((err, req, res, next => {
-  res.senddStatus(500);
-}));
+app.use((err, req, res, next) => {
+  res.sendStatus(500);
+});
 
 const serverControl = module.exports = {};
 
-server.Control.start = () => {
+serverControl.start = () => {
   return new Promise((resolve) => {
     server = app.listen(process.env.PORT, () => {
       console.log('server up', process.env.PORT);
       server.isOn = true;
       resolve();
-    })
-  })
-}
+    });
+  });
+};
 
 serverControl.stop = () => {
   return new Promise((resolve) => {
@@ -38,6 +38,6 @@ serverControl.stop = () => {
       console.log('server down');
       server.isOn = false;
       resolve();
-    }
-  })
-}
+    });
+  });
+};
