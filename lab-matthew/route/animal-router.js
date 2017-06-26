@@ -17,10 +17,24 @@ animalRouter.post('/api/animals', jsonParser, (req, res, next) => {
   .catch(next);
 });
 
-animalRouter.get('api/animals/:id', (req, res, next) => {
-  console.log('hit get /apit/animals:id');
+animalRouter.get('/api/animals/:id', (req, res, next) => {
+  console.log('hit get /api/animals:id');
 
   Animal.findById(req.params.id)
   .then(animal => res.json(animal))
+  .catch(next);
+});
+
+animalRouter.put('/api/animals/:id', jsonParser, (req, res, next) => {
+  console.log('hit put /api/animals:id');
+  Animal.findByIdAndUpdate(req.params.id, req.body, {new: true})
+  .then(animal => res.json(animal))
+  .catch(next);
+});
+
+animalRouter.delete('/api/animals/:id', (req, res, next) => {
+  console.log('hit delete /api/animals:id');
+  Animal.findByIdAndRemove(req.params.id)
+  .then(() => res.send('Animal released to the wild (deleted)'))
   .catch(next);
 });

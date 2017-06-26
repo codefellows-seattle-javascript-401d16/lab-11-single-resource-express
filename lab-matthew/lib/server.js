@@ -10,10 +10,6 @@ mongoose.connect(process.env.MONGODB_URI);
 let server;
 const app = express();
 
-app.get('/api/hello', (req, res, next) => {
-  res.send('hello universe')
-});
-
 app.use(require('../route/animal-router.js'));
 
 app.use((err, req, res, next) => {
