@@ -4,9 +4,24 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha",
+    "stop-db": "killall mongod",
+    "start-db": "mkdir -p ./db &&  mongod --dbpath ./db",
+    "start": "node index.js",
+    "lint": "eslint ./"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "mdm_8@hotmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "express": "^4.15.3",
+    "mocha": "^3.4.2",
+    "superagent": "^3.5.2"
+  },
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "dotenv": "^4.0.0",
+    "http-errors": "^1.6.1",
+    "mongoose": "^4.11.0"
+  }
 }
