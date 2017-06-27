@@ -18,12 +18,12 @@ app.get('/api/hello', (req, res, next) => {
   res.send('hello world');
 });
 
-app.use(require('../route/note-router.js'));
+app.use(require('../route/article-router.js'));
 
 // loader err handler
-app.use((err,req,res,next) => {
+app.use((err, req, res, next => {
   res.sendStatus(500);
-});
+}));
 
 // export server
 const serverControl = module.exports = {};

@@ -4,25 +4,25 @@
 
 const Router = require('express').Router;
 const jsonParser = require('body-parser').json();
-const Note = require('../model/note.js');
+const Article = require('../model/article.js');
 
-let noteRouter = module.exports = new Router();
+let articleRouter = module.exports = new Router();
 
-noteRouter.post('/api/notes', jsonParser, (req, res, next) => {
-    console.log('hit /api/notes');
+articleRouter.post('/api/articles', jsonParser, (req, res, next) => {
+  console.log('hit /api/articles');
 
-    req.body.created = new Date();
+  req.body.created = new Date();
 
-  new Note(req.body)
+  new Article(req.body)
     .save()
-    .then(note => res.json(note))
+    .then(article => res.json(article))
     .catch(next);
 });
 
-noteRouter.get('/api/notes/:id', (req, res, next) => {
-  console.log('hit get /api/notes/:id');
+articleRouter.get('/api/articles/:id', (req, res, next) => {
+  console.log('hit get /api/articles/:id');
 
-  Note.findById(req.params.id)
-  .then(note => res.json(note))
+  Article.findById(req.params.id)
+  .then(article => res.json(article))
   .catch(next);
 });

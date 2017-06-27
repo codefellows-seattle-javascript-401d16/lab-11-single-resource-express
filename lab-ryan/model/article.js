@@ -3,10 +3,10 @@
 const mongoose = require('mongoose');
 
 // define a schema for your model
-const noteSchema = mongoose.Schema({
-  content: {type:String, required: true},
-  created: {type:Date, required: true},
+const articleSchema = mongoose.Schema({
+  title: {type:String, required: true},
+  author: {type:Date, required: true},
 });
 
 // export a model
-module.exports = mongoose.model('note', noteSchema);
+module.exports = mongoose.model('article', articleSchema);
