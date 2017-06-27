@@ -14,7 +14,11 @@ const app = express();
 app.use(require('../route/router.js'));
 
 app.use((err, req, res, next) => {
-  console.log('err', err);
+  console.log('error message', err.message);
+  if (err.message.includes('validation failed'))
+    return res.sendStatus(400);
+  if(err.message.toLowerCase().includes('objectid failed'))
+    return res.sendStatus(404);
   res.sendStatus(500);
 });
 

@@ -15,25 +15,24 @@ describe('testing player routes', () => {
   describe('test POST /api/players',() => {
     it('should respond with a player', () => {
       return superagent.post(`${API_URL}/api/players`)
-        .send({name: 'Messi', team: 'Barcalona', position: 'G.O.A.T'})
+        .send({name: 'Messi', team: 'Barcelona', position: 'G.O.A.T'})
         .then(res => {
           expect(res.status).toEqual(200);
           expect(res.body._id).toExist();
           expect(res.body.name).toEqual('Messi');
-          expect(res.body.team).toEqual('Barcalona');
+          expect(res.body.team).toEqual('Barcelona');
           expect(res.body.position).toEqual('G.O.A.T');
           expect(res.body.created).toExist();
           tempPlayer = res.body;
         });
     });
-    // it('should respond with a 400', () => {
-    //   return superagent.post(`${API_URL}/api/players`)
-    //     .send({})
-    //     .then(res => {
-    //       console.log(res.status);
-    //       expect(res.status).toEqual(400);
-    //     });
-    // });
+    it('should respond with a 400', () => {
+      return superagent.post(`${API_URL}/api/players`)
+        .send({})
+        .catch(res => {
+          expect(res.status).toEqual(400);
+        });
+    });
   });
 
   describe('testing GET /api/player', () => {
@@ -43,17 +42,17 @@ describe('testing player routes', () => {
           expect(res.status).toEqual(200);
           expect(res.body._id).toEqual(tempPlayer._id);
           expect(res.body.name).toEqual('Messi');
-          expect(res.body.team).toEqual('Barcalona');
+          expect(res.body.team).toEqual('Barcelona');
           expect(res.body.position).toEqual('G.O.A.T');
           expect(res.body.created).toEqual(tempPlayer.created);
         });
     });
-    // it('should respond with a 404', () => {
-    //   return superagent.get(`${API_URL}/api/players/nope`)
-    //     .then(res => {
-    //       expect(res.status).toEqual(404);
-    //     });
-    // });
+    it('should respond with a 404', () => {
+      return superagent.get(`${API_URL}/api/players/1234`)
+        .catch(res => {
+          expect(res.status).toEqual(404);
+        });
+    });
   });
 
   describe('testing PUT /api/player', () => {
