@@ -6,54 +6,74 @@ const expect = require('expect');
 const server = require('../lib/server.js');
 
 const API_URL = `http://localhost:${process.env.PORT}`;
-let tempNote;
+let tempPlayer;
 
-describe('testing note routes', () => {
+describe('testing player routes', () => {
   before(server.start);
   after(server.stop);
 
-  describe('test POST /api/notes',() => {
-    it('should respond with a note', () => {
-      return superagent.post(`${API_URL}/api/notes`)
-        .send({content: 'got an epic sunburn'})
+  describe('test POST /api/players',() => {
+    it('should respond with a player', () => {
+      return superagent.post(`${API_URL}/api/players`)
+        .send({name: 'Messi', team: 'Barcalona', position: 'G.O.A.T'})
         .then(res => {
           expect(res.status).toEqual(200);
           expect(res.body._id).toExist();
-          expect(res.body.content).toEqual('got an epic sunburn');
+          expect(res.body.name).toEqual('Messi');
+          expect(res.body.team).toEqual('Barcalona');
+          expect(res.body.position).toEqual('G.O.A.T');
           expect(res.body.created).toExist();
-          tempNote = res.body;
+          tempPlayer = res.body;
         });
     });
+    // it('should respond with a 400', () => {
+    //   return superagent.post(`${API_URL}/api/players`)
+    //     .send({})
+    //     .then(res => {
+    //       console.log(res.status);
+    //       expect(res.status).toEqual(400);
+    //     });
+    // });
   });
 
-  describe('testing GET /api/note', () => {
-    it('should respond with a note', () => {
-      return superagent.get(`${API_URL}/api/notes/${tempNote._id}`)
+  describe('testing GET /api/player', () => {
+    it('should respond with a player', () => {
+      return superagent.get(`${API_URL}/api/players/${tempPlayer._id}`)
         .then(res => {
           expect(res.status).toEqual(200);
-          expect(res.body._id).toEqual(tempNote._id);
-          expect(res.body.content).toEqual('got an epic sunburn');
-          expect(res.body.created).toEqual(tempNote.created);
+          expect(res.body._id).toEqual(tempPlayer._id);
+          expect(res.body.name).toEqual('Messi');
+          expect(res.body.team).toEqual('Barcalona');
+          expect(res.body.position).toEqual('G.O.A.T');
+          expect(res.body.created).toEqual(tempPlayer.created);
         });
     });
+    // it('should respond with a 404', () => {
+    //   return superagent.get(`${API_URL}/api/players/nope`)
+    //     .then(res => {
+    //       expect(res.status).toEqual(404);
+    //     });
+    // });
   });
 
-  describe('testing PUT /api/note', () => {
-    it('should respond with a altered note', () => {
-      return superagent.put(`${API_URL}/api/notes/${tempNote._id}`)
-        .send({content: 'Changed content'})
+  describe('testing PUT /api/player', () => {
+    it('should respond with a altered player', () => {
+      return superagent.put(`${API_URL}/api/players/${tempPlayer._id}`)
+        .send({name: 'Ronaldo', team: 'Real Madrid', position: 'Other G.O.A.T'})
         .then(res => {
           expect(res.status).toEqual(200);
-          expect(res.body._id).toEqual(tempNote._id);
-          expect(res.body.content).toEqual('Changed content');
-          expect(res.body.created).toEqual(tempNote.created);
+          expect(res.body._id).toEqual(tempPlayer._id);
+          expect(res.body.name).toEqual('Ronaldo');
+          expect(res.body.team).toEqual('Real Madrid');
+          expect(res.body.position).toEqual('Other G.O.A.T');
+          expect(res.body.created).toEqual(tempPlayer.created);
         });
     });
   });
 
-  describe('testing DELETE /api/note', () => {
-    it('should respond with a note', () => {
-      return superagent.delete(`${API_URL}/api/notes/${tempNote._id}`)
+  describe('testing DELETE /api/player', () => {
+    it('should respond with a 200', () => {
+      return superagent.delete(`${API_URL}/api/players/${tempPlayer._id}`)
         .then(res => {
           expect(res.status).toEqual(200);
           expect(res.body).toEqual({});

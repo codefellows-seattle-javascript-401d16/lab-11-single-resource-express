@@ -11,4 +11,4 @@ const playerSchema = mongoose.Schema({
 });
 
 
-module.exports = mongoose.model('note', playerSchema);
+module.exports = mongoose.model('player', playerSchema);

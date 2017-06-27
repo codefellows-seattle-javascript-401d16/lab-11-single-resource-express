@@ -6,16 +6,15 @@ const mongoose = require('mongoose');
 mongoose.Promise = Promise;
 mongoose.connect(process.env.MONGODB_URI);
 
-let server;
-const app = express();
 
-app.get('/api/hello', (req,res, next) => {
-  res.send('hello world');
-});
+let server;
+
+const app = express();
 
 app.use(require('../route/router.js'));
 
-app.use((err,req,res,next) => {
+app.use((err, req, res, next) => {
+  console.log('err', err);
   res.sendStatus(500);
 });
 
