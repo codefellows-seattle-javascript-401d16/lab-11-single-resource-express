@@ -3,6 +3,7 @@
 db/
 build/
 .env
+.test.env
 
 ### OSX ###
 .DS_Store
