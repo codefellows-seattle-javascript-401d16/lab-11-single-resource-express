@@ -1,13 +1,13 @@
 'use strict';
 
 require('dotenv').config({path: `${__dirname}/../.test.env`});
+const expect = require('expect');
 const superagent = require('superagent');
 const Team = require('../model/team.js');
-const expect = require('expect');
 const server = require('../lib/server.js');
 
-const API_URL = process.env.API_URL;
 let tempTeam;
+const API_URL = process.env.API_URL;
 
 describe('Testing team routes', () => {
   before(server.start);
@@ -47,8 +47,6 @@ describe('Testing team routes', () => {
   });
 
   describe('Testing GET /api/team:id', () => {
-    let tempTeam;
-
     afterEach(() => Team.remove({}));
 
     beforeEach(() => {
@@ -57,8 +55,10 @@ describe('Testing team routes', () => {
         lastName: 'Miller',
         availabilityDate: '07/02/2017',
       })
-      .save( team => tempTeam = team);
+      .save()
+      .then(team => tempTeam = team);
     });
+
     it('Should respond with a team member', () => {
       return superagent.get(`${API_URL}/api/team/${tempTeam._id}`)
       .then(res => {
@@ -70,11 +70,16 @@ describe('Testing team routes', () => {
         expect(res.body.submitted).toExist();
       });
     });
+
+    it('Should respond with a 404', () => {
+      return superagent.get(`${API_URL}/api/team/5952a8d5c1b8d566a64ea23g`)
+      .catch(res => {
+        expect(res.status).toEqual(404);
+      });
+    });
   });
 
   describe('Testing PUT /api/team/:id', () => {
-    let tempTeam;
-
     afterEach(() => Team.remove({}));
 
     beforeEach(() => {
@@ -83,9 +88,11 @@ describe('Testing team routes', () => {
         lastName: 'Miller',
         availabilityDate: '07/02/2017',
       })
-      .save( team => tempTeam = team);
+      .save()
+      .then(team => tempTeam = team);
     });
-    it('Should respond with a team member', () => {
+
+    it('Should respond with a changed team member', () => {
       return superagent.put(`${API_URL}/api/team/${tempTeam._id}`)
       .send({firstName: 'John'})
       .then(res => {
@@ -98,13 +105,31 @@ describe('Testing team routes', () => {
       });
     });
   });
-  //
-  // describe('Testing DELETE /api/team', () => {
-  //   it('Should remove the specified team member', () => {
-  //     return superagent.delete(`${API_URL}/api/team/${tempTeam._id}`)
-  //     .then(res => {
-  //       expect(res.status).toEqual(200);
-  //     });
-  //   });
-  // });
+
+  describe('Testing DELETE /api/team:id', () => {
+    afterEach(() => Team.remove({}));
+
+    beforeEach(() => {
+      return new Team({
+        firstName: 'Michael',
+        lastName: 'Miller',
+        availabilityDate: '07/02/2017',
+      })
+      .save()
+      .then(team => tempTeam = team);
+    });
+    it('Should remove specified(by _id) team member', () => {
+      return superagent.delete(`${API_URL}/api/team/${tempTeam._id}`)
+      .then(res => {
+        expect(res.status).toEqual(204);
+      });
+    });
+
+    it('Should respond with a 404', () => {
+      return superagent.delete(`${API_URL}/api/team/5952a8d5c1b8d566a64ea23f`)
+      .catch(res => {
+        expect(res.status).toEqual(404);
+      });
+    });
+  });
 });
