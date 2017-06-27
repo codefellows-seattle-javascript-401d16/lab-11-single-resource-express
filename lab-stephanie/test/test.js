@@ -65,14 +65,12 @@ describe('testing profile routes', () => {
         .put(`${API_URL}/api/profiles/${tempProfile._id}`)
         .send({
           firstName: 'millie',
-          lastName: 'mills',
-          employeeID: 'MMILLS'
+          lastName: 'mills'
         })
         .then(res => {
           expect(res.status).toEqual(200);
           expect(res.body.firstName).toEqual('millie');
           expect(res.body.lastName).toEqual('mills');
-          expect(res.body.employeeID).toEqual('MMILLS');
         });
     });
   });
