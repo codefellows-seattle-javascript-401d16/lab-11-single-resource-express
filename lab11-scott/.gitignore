@@ -77,5 +77,8 @@ typings/
 .env
 .test.env
 
+# Database
+db/
+
 
 # End of https://www.gitignore.io/api/node,linux

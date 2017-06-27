@@ -1,6 +1,6 @@
 'use strict';
 
-const dotEnv = require('dotenv').config();
+require('dotenv').config();
 
 const server = require('./lib/server.js');
 
