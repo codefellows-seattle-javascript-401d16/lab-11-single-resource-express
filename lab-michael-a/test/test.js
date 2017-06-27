@@ -15,12 +15,13 @@ describe('testing food routes', () => {
   describe('test POST /api/foods',() => {
     it('should respond with a food', () => {
       return superagent.post(`${API_URL}/api/foods`)
-      .send({content: 'got an epic sunburn'})
+      .send({description: 'breads are so good', type: 'breads', foodGroup:'carbs'})
       .then(res => {
         expect(res.status).toEqual(200);
         expect(res.body._id).toExist();
-        expect(res.body.content).toEqual('got an epic sunburn');
-        expect(res.body.created).toExist();
+        expect(res.body.description).toEqual('breads are so good');
+        expect(res.body.type).toEqual('breads');
+        expect(res.body.timeStamp).toExist();
         tempFood = res.body;
       });
     });
@@ -32,28 +33,49 @@ describe('testing food routes', () => {
       .then(res => {
         expect(res.status).toEqual(200);
         expect(res.body._id).toEqual(tempFood._id);
-        expect(res.body.content).toEqual('got an epic sunburn');
-        expect(res.body.created).toEqual(tempFood.created);
+        expect(res.body.description).toEqual('breads are so good');
+        expect(res.body.timeStamp).toEqual(tempFood.timeStamp);
       });
     });
 
-    it('should respond with a 400 bad request', (done) => {
-      superagent.post('localhost:3000/foods')
+    it('should respond with a 400 bad request', () => {
+      return superagent.get(`${API_URL}/api/foods/${tempFood._id}`)
       .send({})
-      .end((err, res) => {
-        expect(res.status).toEqual(400);
-        done();
+      .catch((err) => {
+        expect(err.status).toEqual(400);
       });
     });
   });
   describe('testing PUT /api/food', () => {
-    it('should respond with updating a notes information...', () => {
-      return superagent.get(`${API_URL}/api/notes/${tempFood._id}`)
+    it('should respond with updating food information...', () => {
+      return superagent.put(`${API_URL}/api/foods/${tempFood._id}`)
+      .send({description: 'celery is pretty healthy', type: 'celery'})
       .then(res => {
         expect(res.status).toEqual(200);
         expect(res.body._id).toEqual(tempFood._id);
-        expect(res.body.content).toEqual('got an epic sunburn');
-        expect(res.body.created).toEqual(tempFood.created);
+        expect(res.body.description).toEqual('celery is pretty healthy');
+        // expect(res.body.created).toEqual(tempFood.created);
+      });
+    });
+
+    it('should respond with a 400 bad request', () => {
+      return superagent.put(`${API_URL}/api/foods/${tempFood._id}`)
+      .send({})
+      .catch((err) => {
+        expect(err.status).toEqual(400);
+      });
+    });
+  });
+  describe('test DELETE /api/food', () => {
+    it('should delete our tempFood...', () => {
+      console.log('this is my tempFood',tempFood);
+      return superagent.delete(`${API_URL}/api/foods/${tempFood._id}`)
+      .then(res => {
+        console.log('res.status...!!',res.status);
+        expect(res.status).toEqual(200);
+        // expect(res.body._id).toEqual(tempFood._id);
+        expect(tempFood).toEqual(undefined);
+        // expect(res.body.created).toEqual(tempFood.created);
       });
     });
   });

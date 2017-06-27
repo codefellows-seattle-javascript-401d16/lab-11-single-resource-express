@@ -45,7 +45,7 @@
 
 ### `/api/resource-name/:id`
 * `GET` request
- * pass the id of a resource though the query string to fetch a resource   
+ * pass the id of a resource though the query string to fetch a resource  DONE
 * `PUT` request
  * pass data as stringified json in the body of a put request to update a resource
 * `DELETE` request
@@ -56,7 +56,7 @@
 * write a test to ensure that your api returns a status code of 404 for routes that have not been registered
 * write tests to ensure your `/api/resource-name` endpoint responds as described for each condition below:
  * `GET` - test 404, responds with 'not found' for valid request made with an id that was not found --DONE
- * `GET` - test 200, response body like `{<data>}` for a request made with a valid id
+ * `GET` - test 200, response body like `{<data>}` for a request made with a valid id DONE
  * `PUT` - test 200, response body like  `{<data>}` for a post request with a valid body
  * `POST` - test 200, response body like  `{<data>}` for a post request with a valid body
  * `POST` - test 400, with an invalid request body
