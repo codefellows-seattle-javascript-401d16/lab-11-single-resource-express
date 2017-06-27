@@ -4,10 +4,10 @@
   "description": "![cf](https://i.imgur.com/7v5ASc8.png) lab 11 single resource express api ======",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
     "start-db": "mkdir -p ./db && mongod --dbpath ./db",
     "stop-db": "killall mongod",
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",

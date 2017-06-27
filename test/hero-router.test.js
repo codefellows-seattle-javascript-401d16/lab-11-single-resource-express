@@ -13,8 +13,8 @@ describe('Testing Hero routes', () => {
   after(server.stop);
 
   describe('Testing POST request', () => {
-    it('should update dataase wiht information', () => {
-      return superagent.post(`${API_URL}/api/hero`)
+    it('should post information to database', () => {
+      return superagent.post(`${API_URL}/api/heros`)
       .send({hero: 'Artanis', score: 97, player: 'Phan', team: 'Tempo Storm'})
       .then( res => {
         expect(res.status).toEqual(200);
@@ -22,9 +22,17 @@ describe('Testing Hero routes', () => {
         expect(res.body.hero).toEqual('Artanis');
         expect(res.body.score).toEqual(97);
         expect(res.body.player).toEqual('Phan');
-        expect(res.body.team).toEqual('Temp Storm');
+        expect(res.body.team).toEqual('Tempo Storm');
         expect(res.body.dateCreated).toExist();
         tempHero = res.body;
+      });
+    });
+    it('Should return 400 error', () => {
+      return superagent.post(`${API_URL}/api/heros`)
+      .send({})
+      .catch(res => {
+        console.log(res.status);
+        expect(res.status).toEqual(400);
       });
     });
   });
@@ -37,9 +45,38 @@ describe('Testing Hero routes', () => {
         expect(res.body.hero).toEqual('Artanis');
         expect(res.body.score).toEqual(97);
         expect(res.body.player).toEqual('Phan');
-        expect(res.body.team).toEqual('Temp Storm');
+        expect(res.body.team).toEqual('Tempo Storm');
         expect(res.body.dateCreated).toEqual(tempHero.dateCreated);
+        tempHero = res.body;
       });
     });
+  });
+  describe('Testing PUT request', () => {
+    it('should return with updated information', () => {
+      return superagent.put(`${API_URL}/api/heros/${tempHero._id}`)
+      .send({hero: 'Sonya', score: 88, player: 'Goku', team: 'Esport20'})
+      .then(res => {
+        expect(res.status).toEqual(200);
+        expect(res.body._id).toEqual(tempHero._id);
+        expect(res.body.hero).toEqual('Sonya');
+        expect(res.body.score).toEqual(88);
+        expect(res.body.player).toEqual('Goku');
+        expect(res.body.team).toEqual('Esport20');
+        expect(res.body.dateCreated).toExist();
+        tempHero = res.body;
+      });
+    });
+  });
+  describe('Testing DELETE request', () => {
+    it('should return with updated information', () => {
+      return superagent.delete(`${API_URL}/api/heros/${tempHero._id}`)
+      .then(res => {
+        console.log(res.body.id);
+        expect(res.status).toEqual(204);
+      });
+    });
+    // it('should respond with a 404 error', () => {
+    //   return superagent.delete(`${API_URL}/api/heros`)
+    // });
   });
 });

@@ -1,12 +1,12 @@
 'use strict';
 
 const Router = require('express').Router;
-const jsonParser = require('body-parser').json;
+const jsonParser = require('body-parser').json();
 const Hero = require('../model/hero.js');
 
 let heroRouter = module.exports = new Router();
 
-heroRouter.post('/api/hero', jsonParser, (req, res, next) => {
+heroRouter.post('/api/heros', jsonParser, (req, res, next) => {
   req.body.dateCreated = new Date();
 
   new Hero(req.body)
@@ -15,8 +15,21 @@ heroRouter.post('/api/hero', jsonParser, (req, res, next) => {
   .catch(next);
 });
 
-heroRouter.get('/api/hero/:id', (req, res, next) => {
-  Hero.findByI(req.params.id)
+heroRouter.get('/api/heros/:id', (req, res, next) => {
+  Hero.findById(req.params.id)
   .then(hero => res.json(hero))
+  .catch(next);
+});
+
+heroRouter.put('/api/heros/:id', jsonParser, (req, res, next) => {
+  console.log('hit', req.body, req.body._id);
+  Hero.findByIdAndUpdate(req.params.id, req.body, {new: true})
+  .then(hero => res.json(hero))
+  .catch(next);
+});
+
+heroRouter.delete('/api/heros/:id', (req, res, next) => {
+  Hero.findByIdAndRemove(req.params.id)
+  .then(res.sendStatus(204))
   .catch(next);
 });
