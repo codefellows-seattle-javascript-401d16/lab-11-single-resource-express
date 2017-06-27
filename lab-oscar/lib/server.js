@@ -14,7 +14,10 @@ app.get('/api/hello', (req, res, next) => {
 app.use(require('../route/user-router.js'));
 
 app.use((err, req, res, next) => {
-  res.sendStatus(500);
+  if(!err){
+    res.sendStatus(500);
+  }
+  res.sendStatus(err.statusCode);
 });
 const serverControl = module.exports = {};
 

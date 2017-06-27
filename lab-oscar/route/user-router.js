@@ -9,7 +9,7 @@ const User = require('../model/user.js');
 
 let userRouter = module.exports = new Router();
 userRouter.post('/api/user', jsonParser, (req, res, next) => {
-
+  console.log('send', req.body);
   req.body.created = new Date();
   new User(req.body)
     .save()

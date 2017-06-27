@@ -14,6 +14,15 @@ describe('testing user routes', ()=>{
   before(server.start);
   after(server.stop);
 
+  describe('testing routes that don\'t exists', () => {
+    it('should respond with 404', () => {
+      return superagent.get(`${API_URL}/dont/exists`)
+        .catch(res => {
+          expect(res.status).toEqual(404);
+        });
+    });
+  });
+
   describe('test POST /api/user', () =>{
     it('should respond with a user', () =>{
       return superagent.post(`${API_URL}/api/user`)
