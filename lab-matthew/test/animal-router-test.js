@@ -24,7 +24,13 @@ describe('testing animal routes', () => {
         expect(res.body.class).toEqual('Shadow Knight');
         expect(res.body.created).toExist();
         tempAnimal = res.body;
-        console.log(tempAnimal);
+      });
+    });
+    it('should respond with a 400 status', () => {
+      return superagent.post(`${API_URL}/api/animals`)
+      .send({})
+      .catch(err => {
+        expect(err.status).toEqual(400);
       });
     });
   });
@@ -33,13 +39,18 @@ describe('testing animal routes', () => {
     it('should respond with an animal', () => {
       return superagent.get(`${API_URL}/api/animals/${tempAnimal._id}`)
       .then(res => {
-        // console.log('tempAnimal', tempAnimal);
         expect(res.status).toEqual(200);
         expect(res.body._id).toEqual(tempAnimal._id);
         expect(res.body.name).toEqual(tempAnimal.name);
         expect(res.body.species).toEqual(tempAnimal.species);
         expect(res.body.class).toEqual(tempAnimal.class);
         expect(res.body.created).toEqual(tempAnimal.created);
+      });
+    });
+    it('should respond with a 404 not found', () => {
+      superagent.get(`${API_URL}/api/animals/2498720283`)
+      .then(err => {
+        expect(err.status).toEqual(404);
       });
     });
   });
@@ -56,14 +67,12 @@ describe('testing animal routes', () => {
         expect(res.body.class).toEqual('El Gato Diablo');
         expect(res.body.created).toExist();
         tempAnimal = res.body;
-        console.log(tempAnimal);
       });
     });
   });
 
   describe('test DELETE /api/animals', () => {
     it('should delete specified animal', () => {
-      console.log('animal before delete', tempAnimal);
       return superagent.delete(`${API_URL}/api/animals/${tempAnimal._id}`)
       .send({name: 'Gato', species: 'Cat', class: 'El Gato Diablo'})
       .then(res => {

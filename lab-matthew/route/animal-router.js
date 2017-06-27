@@ -3,12 +3,15 @@
 const Router = require('express').Router;
 const jsonParser = require('body-parser').json();
 const Animal = require('../model/animal.js');
+const createError = require('http-errors');
 
 let animalRouter = module.exports = new Router();
 
 animalRouter.post('/api/animals', jsonParser, (req, res, next) => {
   console.log('hit /api/animals');
-
+  if (!req.body || !req.body.name || !req.body.species || !req.body.class){
+    return next(new createError.BadRequest());
+  }
   req.body.created = new Date();
 
   new Animal(req.body)

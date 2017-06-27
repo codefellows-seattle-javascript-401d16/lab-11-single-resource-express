@@ -13,7 +13,10 @@ const app = express();
 app.use(require('../route/animal-router.js'));
 
 app.use((err, req, res, next) => {
-  res.sendStatus(500);
+  if(!err){
+    res.sendStatus(500);
+  }
+  res.sendStatus(err.status);
 });
 
 const serverControl = module.exports = {};
