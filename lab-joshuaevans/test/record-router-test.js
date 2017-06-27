@@ -38,6 +38,7 @@ describe('testing record routes', () => {
       return superagent.get(`${API_URL}/api/records/`)
       .then(res => {
         expect(Array.isArray(res.body)).toBe(true);
+        console.log(res.body);
       });
     });
   });
