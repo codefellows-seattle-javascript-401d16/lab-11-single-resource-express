@@ -54,7 +54,6 @@ describe('testing food routes', () => {
         expect(res.status).toEqual(200);
         expect(res.body._id).toEqual(tempFood._id);
         expect(res.body.description).toEqual('celery is pretty healthy');
-        // expect(res.body.created).toEqual(tempFood.created);
       });
     });
 
@@ -68,14 +67,10 @@ describe('testing food routes', () => {
   });
   describe('test DELETE /api/food', () => {
     it('should delete our tempFood...', () => {
-      console.log('this is my tempFood',tempFood);
       return superagent.delete(`${API_URL}/api/foods/${tempFood._id}`)
       .then(res => {
-        console.log('res.status...!!',res.status);
-        expect(res.status).toEqual(200);
-        // expect(res.body._id).toEqual(tempFood._id);
-        expect(tempFood).toEqual(undefined);
-        // expect(res.body.created).toEqual(tempFood.created);
+        expect(res.status).toEqual(204);
+        expect(res.body).toEqual({});
       });
     });
   });

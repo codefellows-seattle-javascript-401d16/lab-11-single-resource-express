@@ -18,7 +18,7 @@
   * how to start the server
   * document the routes
 * include a package.json
-  * have a lint script for running eslint ???
+  * have a lint script for running eslint DONE
   * have a test script for running mocha DONE
   * start script for running your server DONE
   * have a start-db script for running mongod DONE
@@ -47,7 +47,7 @@
 * `GET` request
  * pass the id of a resource though the query string to fetch a resource  DONE
 * `PUT` request
- * pass data as stringified json in the body of a put request to update a resource
+ * pass data as stringified json in the body of a put request to update a resource DONE
 * `DELETE` request
  * pass the id of a resource though the query string to delete a resource   
 
@@ -57,8 +57,8 @@
 * write tests to ensure your `/api/resource-name` endpoint responds as described for each condition below:
  * `GET` - test 404, responds with 'not found' for valid request made with an id that was not found --DONE
  * `GET` - test 200, response body like `{<data>}` for a request made with a valid id DONE
- * `PUT` - test 200, response body like  `{<data>}` for a post request with a valid body
- * `POST` - test 200, response body like  `{<data>}` for a post request with a valid body
+ * `PUT` - test 200, response body like  `{<data>}` for a post request with a valid body DONE
+ * `POST` - test 200, response body like  `{<data>}` for a post request with a valid body DONE
  * `POST` - test 400, with an invalid request body
 
 ## Bonus

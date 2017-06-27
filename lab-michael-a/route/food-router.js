@@ -59,7 +59,6 @@ foodRouter.put('/api/foods/:id', jsonParser, (req, res, next) => {
 
 
 foodRouter.delete('/api/foods/:id', (req, res, next) => {
-  console.log('this is req.params.id',req.params.id);
   if(!req.params.id) {
     res.writeHead(400,{
       'Content-Type':'plain/text',
@@ -67,18 +66,9 @@ foodRouter.delete('/api/foods/:id', (req, res, next) => {
     res.write('body not found');
     return;
   }
-  Food.remove({id:req.params.id})
+  Food.findByIdAndRemove(req.params.id)
+  .then(()=> res.sendStatus(204))
   .catch(next);
 
-  // Food.findById(req.params.id)
-  // .then((food)=> food.remove( {} ))
-  // .catch(next);
 
 });
-
-
-
-//   Food.findById(req.params.id)
-//   .then(food => res.json(food))
-//   .catch(next);
-// });
