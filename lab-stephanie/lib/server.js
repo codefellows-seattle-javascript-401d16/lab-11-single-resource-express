@@ -12,7 +12,7 @@ const app = express();
 app.use(require('../route/profile-router.js'));
 
 app.use((err, req, res, next) => {
-  res.sendStatus(500);
+  res.sendStatus(400);
 });
 
 const serverControl = (module.exports = {});
