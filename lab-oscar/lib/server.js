@@ -13,11 +13,12 @@ app.get('/api/hello', (req, res, next) => {
 });
 app.use(require('../route/user-router.js'));
 
+
 app.use((err, req, res, next) => {
-  if(!err){
-    res.sendStatus(500);
-  }
-  res.sendStatus(err.statusCode);
+  console.log(err);
+  if(err.message.includes('Cast to ObjectId'))
+    return res.sendStatus(404);
+  res.sendStatus(500);
 });
 const serverControl = module.exports = {};
 

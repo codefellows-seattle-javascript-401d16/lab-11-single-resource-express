@@ -29,3 +29,10 @@ userRouter.put('/api/user/:id', jsonParser, (req, res, next) => {
     .then(user => res.json(user))
     .catch(next);
 });
+
+userRouter.delete('/api/user/:id', (req, res, next) => {
+  console.log('id', req.params.id);
+  User.findByIdAndRemove(req.params.id)
+    .then(() => res.send('deleted'))
+    .catch(next);
+});

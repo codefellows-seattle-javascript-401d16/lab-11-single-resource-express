@@ -61,4 +61,13 @@ describe('testing user routes', ()=>{
         });
     });
   });
+  describe('testing DELETE /api/user', () =>{
+    it('should delete a user', () => {
+      return superagent.delete(`${API_URL}/api/user/${tempUser._id}`)
+        .then(res => {
+          expect(res.status).toEqual(200);
+          expect(res.body).toEqual({});
+        });
+    });
+  });
 });
