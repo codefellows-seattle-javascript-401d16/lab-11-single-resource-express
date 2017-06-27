@@ -1,0 +1,31 @@
+{
+  "name": "lab-ryan-felix",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc mocha",
+    "lint": "./configtest.sh && eslint ./",
+    "start": "node index.js",
+    "start-db": "mongod --dbpath ./db",
+    "stop-db": "killall mongod"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.3",
+    "fs-extra": "^3.0.1",
+    "http-errors": "^1.6.1",
+    "mongoose": "^4.11.0",
+    "uuid": "^3.1.0"
+  },
+  "devDependencies": {
+    "expect": "^1.20.2",
+    "mocha": "^3.4.2",
+    "nyc": "^11.0.3",
+    "superagent": "^3.5.2"
+  }
+}
