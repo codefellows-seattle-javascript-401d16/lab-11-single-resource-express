@@ -11,7 +11,7 @@ const app = express();
 app.use(require('../route/feeling-router.js'));
 
 app.use((err, req, res, next) => {
-  console.log('MIDDLEWERROR', err);
+  console.log('err', err);
   res.sendStatus(500);
 });
 
