@@ -1,4 +1,4 @@
-## Single Resource Express API_URL
+## Single Resource Express API
 
 To install, you simply npm -i which will install all dependencies, which include the following:
 mongoose, mongoDB, express, dotenv, superagent, mocha, and expect.
