@@ -11,14 +11,10 @@ let server;
 
 const app = express();
 
-app.get('/api/hello', (req, res, next) => {
-  res.send('hello world');
-});
-
-app.use(require('../route/note-router.js'));
+app.use(require('../route/insta-router.js'));
 
 app.use((err, req, res, next) => {
-  res.sendStatus(500);
+  res.sendStatus(404);
 });
 
 const serverControl = module.exports = {};
@@ -42,25 +38,3 @@ serverControl.stop = () => {
     });
   });
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// what up
