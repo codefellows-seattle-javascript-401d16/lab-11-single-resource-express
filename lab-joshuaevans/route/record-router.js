@@ -24,8 +24,7 @@ recordRouter.get('/api/records/:id', (req, res, next) => {
 
 recordRouter.get('/api/records/', (req, res, next) => {
 
-  Record.find({'_id': {$in: [Schema.Record]}})
-
+  Record.find({}, '_id') 
   .then(record => res.json(record))
   .catch(next);
 });
