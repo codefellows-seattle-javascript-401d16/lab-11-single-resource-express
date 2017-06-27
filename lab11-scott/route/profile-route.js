@@ -1,6 +1,6 @@
 'use strict';
 
-const Router = require('express').Router
+const Router = require('express').Router;
 const jsonParser = require('body-parser');
 const Profile = require('../model/profile.js');
 
