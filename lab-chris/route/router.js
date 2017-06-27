@@ -32,6 +32,6 @@ noteRouter.put('/api/notes/:id', jsonParser, (req, res, next) => {
 noteRouter.delete('/api/notes/:id', (req, res, next) => {
 
   Note.findByIdAndRemove(req.params.id)
-    .then(() => res.write(`${req.params.id} deleted`))
+    .then(() => res.send(`${req.params.id} deleted`))
     .catch(next);
 });

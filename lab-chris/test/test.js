@@ -51,15 +51,13 @@ describe('testing note routes', () => {
     });
   });
 
-  // describe('testing DELETE /api/note', () => {
-  //   it('should respond with a note', () => {
-  //     return superagent.get(`${API_URL}/api/notes/${tempNote._id}`)
-  //       .then(res => {
-  //         expect(res.status).toEqual(200);
-  //         expect(res.body._id).toEqual(tempNote._id);
-  //         expect(res.body.content).toEqual('got an epic sunburn');
-  //         expect(res.body.created).toEqual(tempNote.created);
-  //       });
-  //   });
-  // });
+  describe('testing DELETE /api/note', () => {
+    it('should respond with a note', () => {
+      return superagent.delete(`${API_URL}/api/notes/${tempNote._id}`)
+        .then(res => {
+          expect(res.status).toEqual(200);
+          expect(res.body).toEqual({});
+        });
+    });
+  });
 });
