@@ -61,18 +61,14 @@ describe('Testing note-routes', () => {
   describe('testing GET for file not found for valid id', () => {
     it('should return status 200 and task with valid id', () => {
       return superagent.get(`${API_URL}/api/tasks/${tempTask._id}`)
-      // .catch(err => {
-      //   console.log(err, 'err');
-      //   console.log(tempTask._id);
       .then(res => {
         expect(res.status).toEqual(200);
-        // expect(res.body._id).toEqual(tempTask._id);
-        // expect(res.body.taskName).toEqual(tempTask.taskName);
-        // expect(res.body.xp).toEqual(tempTask.xp);
-        // expect(res.body.questTask).toEqual(tempTask.questTask);
-        // expect(res.body.questName).toEqual(tempTask.questName);
-        // expect(res.body.created).toExist();
-        console.log(tempTask);
+        expect(res.body._id).toEqual(tempTask._id);
+        expect(res.body.taskName).toEqual(tempTask.taskName);
+        expect(res.body.xp).toEqual(tempTask.xp);
+        expect(res.body.questTask).toEqual(tempTask.questTask);
+        expect(res.body.questName).toEqual(tempTask.questName);
+        expect(res.body.created).toExist();
       });
     });
   });

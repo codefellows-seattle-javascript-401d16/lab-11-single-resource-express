@@ -17,7 +17,7 @@ taskRouter.post('/api/tasks', jsonParser, (req, res, next) => {
   .catch(next);
 });
 
-taskRouter.get('/api/tasks:id', (req, res, next) => {
+taskRouter.get('/api/tasks/:id', (req, res, next) => {
   console.log('hit /api/tasks:id');
 
   Task.findById(req.params.id)
@@ -31,13 +31,13 @@ taskRouter.get('/api/tasks', (req, res, next) => {
   .catch(next);
 });
 
-taskRouter.put('/api/tasks', jsonParser, (req, res, next) => {
+taskRouter.put('/api/tasks/:id', jsonParser, (req, res, next) => {
   Task.findByIdAndUpdate(req.params.id, req.body, {new: true})
   .then(task => res.json(task))
   .catch(next);
 });
 
-taskRouter.delete('/api/tasks:id', (req, res, next) => {
+taskRouter.delete('/api/tasks/:id', (req, res, next) => {
   Task.findByIdAndRemove(req.params.id)
   .then(() => res.send('task deleted'))
   .catch(next);
