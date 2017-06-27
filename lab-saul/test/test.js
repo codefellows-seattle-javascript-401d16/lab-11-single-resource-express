@@ -25,6 +25,13 @@ describe('testing car routes', () =>{
         tempCar = res.body;
       });
     });
+    it('should return a 400 err', () => {
+      return superagent.post(`${API_URL}/api/cars`)
+      .send({})
+      .catch(err =>{
+        expect(err.status).toEqual(400);
+      });
+    });
   });
   describe('test GET /api/cars', () => {
     it('should return a car with characteristics', () =>{
@@ -38,6 +45,12 @@ describe('testing car routes', () =>{
         expect(res.body.color).toEqual('white');
         expect(res.body.type).toEqual('coupe');
         expect(res.body.created).toEqual(tempCar.created);
+      });
+    });
+    it('should return a car with characteristics', () =>{
+      return superagent.get(`${API_URL}/api/cars/283832`)
+      .catch(err => {
+        expect(err.status).toEqual(404);
       });
     });
   });

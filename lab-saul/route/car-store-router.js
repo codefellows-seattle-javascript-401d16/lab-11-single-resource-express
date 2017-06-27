@@ -3,13 +3,15 @@
 const Router = require('express').Router;
 const jsonParser = require('body-parser').json();
 const Car = require('../model/car-store.js');
+const createError = require('http-errors');
 
 let carRouter = module.exports = new Router();
 
 carRouter.post('/api/cars', jsonParser, (req, res, next) => {
   console.log('hit /api/cars');
-
-
+  if(!req.body.make){
+    return next(new createError.BadRequest());
+  }
   new Car(req.body)
   .save()
   .then(car => res.json(car))
