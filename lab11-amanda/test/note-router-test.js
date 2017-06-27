@@ -12,27 +12,25 @@ describe('testing note routes', () => {
   after(server.stop);
 
   describe('test POST /api/notes',() => {
-    it('should respond with a note', () => {
-      superagent.post(`${API_URL}/api/notes`)
-      .send({name: 'amanda'})
+    let data = {name: 'amanda'};
+    it('should respond with a noteand 200 status', () => {
+      return superagent.post(`${API_URL}/api/notes`)
+      .send(data)
       .then(res => {
         expect(res.status).toEqual(200);
         expect(res.body._id).toExist();
-        expect(res.body.name).toEqual('amanda');
-        tempNote = res.body;
+        expect(res.body.name).toEqual(data.name);
+        // tempNote = res.body; //do I need this?
       });
+    });
+    it('should respond with 400', () => {
+      superagent.post(`${API_URL}/api/notes`)
+        .catch(err => {
+          expect(err.status).toEqual(400);
+        });
     });
   });
 
-  describe('test POST /api/notes',() => {
-    it('should respond with 400', () => {
-      superagent.post(`${API_URL}/api/notes`)
-      .send({})
-      .catch(err => {
-        expect(err.status).toEqual(400);
-      });
-    });
-  });
   //GET
   describe('testing GET /api/note', () => {
     it('should respond with a note', () => {
@@ -46,7 +44,7 @@ describe('testing note routes', () => {
   });
 
   //404
-  describe('testing wDELETE /api/note', () => {
+  describe('testing DELETE /api/note', () => {
     it('should delete a note', () => {
       superagent.get(`${API_URL}/no/id`)
     .then(err => {
