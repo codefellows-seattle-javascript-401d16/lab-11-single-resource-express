@@ -11,18 +11,14 @@ let profileRouter = module.exports = new Router();
 
 profileRouter.post('/api/profile', jsonParser, (req, res, next) => {
   console.log('you hit the POST route');
-  if (!req.body) {
-    res.status(400);
-  }
+  // if (!req.body) {
+  //   res.sendStatus (400);
+  // }
   //create a new profile by passing in the req body
   new Profile(req.body)
   .save()
   .then(profile => res.json(profile))
-  .catch(err => {
-    console.log('err: ', err);
-    //will modify the errors with the http-errors module
-    next(err);
-  });
+  .catch(next);
 });
 
 profileRouter.get('/api/profile/:id', (req, res, next) => {
@@ -39,7 +35,7 @@ profileRouter.put('/api/profile/:id', jsonParser, (req, res, next) => {
     runValidators: true,
     new: true,
   };
-//the findByIdAndUpdate is a method on mongoose and it returns a document, the profile i pass in to .then is the document. We run the .json  on the document.
+  //the findByIdAndUpdate is a method on mongoose and it returns a document, the profile i pass in to .then is the document. We run the .json  on the document.
   Profile.findByIdAndUpdate(req.params.id, req.body, options)
   .then(profile => res.json(profile))
   .catch(next);

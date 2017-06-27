@@ -1,5 +1,6 @@
 'use strict';
 
+// require('dotenv').config({path: `${__dirname}/../.test.env`});
 const express = require('express');
 //app creates the server
 const app = express();

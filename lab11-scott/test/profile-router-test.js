@@ -16,7 +16,7 @@ describe('Testing profile routes\n', () => {
   before(server.start);
   after(server.stop);
 
-  describe('Testing POST route at /api/profile', () => {
+  describe('\nTesting POST route at /api/profile\n', () => {
     after(() => Profile.remove({})); //this will remove all profiles after the test is ran
     let data = {
       firstName: 'Scott',
@@ -65,7 +65,7 @@ describe('Testing profile routes\n', () => {
     });
   });
 
-  describe('Testing GET /api/profile/:id', () => {
+  describe('\nTesting GET /api/profile/:id\n', () => {
     //after/before each does it before each IT block.
     afterEach(() => Profile.remove({}));
     beforeEach(() => {
@@ -79,17 +79,17 @@ describe('Testing profile routes\n', () => {
     });
     describe('When GET is successful', () => {
       it('it should return a profile', () => {
-        superagent.get(`${API_URL}/api/profile/${tempProfile._id}`)
+        return superagent.get(`${API_URL}/api/profile/${tempProfile._id}`)
         .then(res => {
-          expect(res.firstName).toEqual(tempProfile.firstName);
-          expect(res.nickName).toEqual(tempProfile.nickName);
-          expect(res.age).toEqual(tempProfile.age);
+          expect(res.body.firstName).toEqual(tempProfile.firstName);
+          expect(res.body.nickName).toEqual(tempProfile.nickName);
+          expect(res.body.age).toEqual(tempProfile.age);
         });
       });
     });
     describe('When passing in a bad id', () => {
       it('it should return a 404 status', () => {
-        superagent.get(`${API_URL}/api/profile/23432`)
+        return superagent.get(`${API_URL}/api/profile/23432`)
         .catch(res => {
           expect(res.status).toEqual(404);
         });
@@ -97,7 +97,7 @@ describe('Testing profile routes\n', () => {
     });
   });
 
-  describe('Testing PUT /api/profile/:id', () => {
+  describe('\nTesting PUT /api/profile/:id\n', () => {
     //after/before each does it before each IT block.
     afterEach(() => Profile.remove({}));
     beforeEach(() => {
@@ -110,17 +110,26 @@ describe('Testing profile routes\n', () => {
       .then(profile => tempProfile = profile);
     });
     describe('When PUT is successful', () => {
-      it('it should return a profile', () => {
-        superagent.put(`${API_URL}/api/profile/${tempProfile._id}`)
+      it('it should return a {nickName: fiddleSticks}', () => {
+        return superagent.put(`${API_URL}/api/profile/${tempProfile._id}`)
         .send({nickName: 'fiddleSticks'})
         .then(res => {
-          expect(res.nickName).toEqual('fiddleSticks');
+          expect(res.body.nickName).toEqual('fiddleSticks');
+        });
+      });
+    });
+    describe('When passing in an incorrect id', () => {
+      it('it should return a status 404', () => {
+        return superagent.put(`${API_URL}/api/profile/1234`)
+        .send({nickName: 'fiddleSticks'})
+        .catch(res => {
+          expect(res.status).toEqual(404);
         });
       });
     });
   });
 
-  describe('Testing DELETE /api/profile/:id', () => {
+  describe('\nTesting DELETE /api/profile/:id\n', () => {
     //after/before each does it before each IT block.
     afterEach(() => Profile.remove({}));
     beforeEach(() => {
@@ -134,9 +143,17 @@ describe('Testing profile routes\n', () => {
     });
     describe('When DELETE is successful', () => {
       it('it should return a 204 status with no content', () => {
-        superagent.delete(`${API_URL}/api/profile/${tempProfile._id}`)
+        return superagent.delete(`${API_URL}/api/profile/${tempProfile._id}`)
         .then(res => {
           expect(res.status).toEqual(204);
+        });
+      });
+    });
+    describe('When passing in an incorrect id', () => {
+      it('it should return a 404 status', () => {
+        return superagent.delete(`${API_URL}/api/profile/124325`)
+        .catch(res => {
+          expect(res.status).toEqual(404);
         });
       });
     });
