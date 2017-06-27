@@ -19,18 +19,8 @@ mongoose.connect(process.env.MONGODB_URI, (err) => {
 let server;
 const app = express();
 
-//routes not in ../route/beer-router.js
-app.get('/api/hello', (req, res) => { //sample
-  res.send('hello world');
-});
-
 //tell app to use ../route/beer-router.js
 app.use(require('../route/beer-router.js'));
-
-// //error handler
-// app.use((err, req, res) => {
-//   if (err) res.send(res);
-// });
 
 //export server and server controls
 const serverControl = module.exports = {};
