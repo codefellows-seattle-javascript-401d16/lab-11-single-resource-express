@@ -1,33 +1,23 @@
 'use strict';
 
-// node modules
-// npm modules
 const express = require('express');
 const mongoose = require('mongoose');
-// app modules
-// module logic
-// configure mongoose
+
 mongoose.Promise = Promise;
-mongoose.connect(process.env.MONGO_URI);
+mongoose.connect(process.env.MONGODB_URI);
 
 let server;
-
 const app = express();
-// load middleware
-// load routes
-app.get('/api/team', (req,res,next) => {
-  res.send(/*something here*/);
-});
 
-app.use(require('..route/team-router.js'));
+app.use(require('../route/team-router.js'));
 
-// load err handler
 app.use((err, req, res, next) => {
-  res.sendStatus(500);
-  console.error(err);
+  if(!err){
+    res.sendStatus(500);
+  }
+  res.sendStatus(err.status);
 });
 
-// export server
 const serverOnOff = module.exports = {};
 
 serverOnOff.start = () => {
