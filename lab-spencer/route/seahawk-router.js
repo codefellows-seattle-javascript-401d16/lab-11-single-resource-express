@@ -10,7 +10,11 @@ seahawkRouter.post('/api/seahawks', jsonParser, (req, res, next) => {
   new Seahawk(req.body)
     .save()
     .then(seahawk => res.json(seahawk))
-    .catch(next);
+    .catch(err => {
+      if(err.name === 'ValidatorError' || err.name === 'ValidationError')
+        return res.sendStatus(400);
+      next(err);
+    });
 });
 
 seahawkRouter.get('/api/seahawks', (req, res, next) => {
@@ -27,12 +31,12 @@ seahawkRouter.get('/api/seahawks/:id', (req, res, next) => {
 
 seahawkRouter.put('/api/seahawks/:id', jsonParser, (req, res, next) => {
   Seahawk.update({_id: req.params.id}, {name: req.body.name, height: req.body.height, weight: req.body.weight, position: req.body.position, picture: req.body.picture})
-    .then(seahawk => res.json(seahawk))
+    .then(() => res.json(req.body)) // because update doesnt return the updated record
     .catch(next);
 });
 
 seahawkRouter.delete('/api/seahawks/:id', (req, res, next) => {
-  Seahawk.remove({_id: req.params.id})
-    .then()
+  Seahawk.deleteOne({_id: req.params.id})
+    .then(() => res.sendStatus(200))
     .catch(next);
 });

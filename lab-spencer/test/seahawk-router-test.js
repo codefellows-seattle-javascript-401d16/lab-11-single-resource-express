@@ -28,10 +28,10 @@ describe('/api/seahawks routes', () => {
         tempSeahawk = res.body;
       });
     });
-    it('Should respond 400', () => {
+    it('Should respond 400 bad request', () => {
       return superagent.post(`${API_URL}/seahawks`)
       .send({})
-      .then(res => {
+      .catch(res => {
         expect(res.status).toEqual(400);
       });
     });
@@ -44,11 +44,11 @@ describe('/api/seahawks routes', () => {
         expect(res.body).toBeAn(Array);
       });
     });
-    it('Should respond 200 with a Seahawk', () => {
-      return superagent.get(`${API_URL}/seahawks/${tempSeahawk.id}`)
+    it('Should respond 200 with a player', () => {
+      return superagent.get(`${API_URL}/seahawks/${tempSeahawk._id}`)
       .then(res => {
         expect(res.status).toEqual(200);
-        expect(res.body.id).toExist();
+        expect(res.body._id).toEqual(tempSeahawk._id);
         expect(res.body.name).toEqual('Russell Wilson');
         expect(res.body.height).toEqual('6\'11"');
         expect(res.body.weight).toEqual('500');
@@ -59,24 +59,22 @@ describe('/api/seahawks routes', () => {
     });
   });
   describe('testing PUT /api/note', () => {
-    it('Should respond 202', () => {
-      return superagent.put(`${API_URL}/seahawks/${tempSeahawk.id}`)
-      .send({name: 'Russell Hawk', height: '6\'12"', weight: '185', position: 'QB', picture: 'testpic/pic.png'})
+    it('Should respond 200 with the updated player', () => {
+      return superagent.put(`${API_URL}/seahawks/${tempSeahawk._id}`)
+      .send({name: 'Russell Hawk', height: `6'12"`, weight: '185', position: 'QB', picture: 'testpic/pic.png'})
       .then(res => {
         expect(res.status).toEqual(200);
-        expect(res.body.id).toEqual(tempSeahawk.id);
         expect(res.body.name).toEqual('Russell Hawk');
         expect(res.body.height).toEqual('6\'12"');
         expect(res.body.weight).toEqual('185');
         expect(res.body.position).toEqual('QB');
         expect(res.body.picture).toEqual('testpic/pic.png');
-        tempSeahawk = res.body;
       });
     });
   });
   describe('testing DELETE /api/note', () => {
     it('Should respond 200', () => {
-      return superagent.delete(`${API_URL}/seahawks?id=${tempSeahawk.id}`)
+      return superagent.delete(`${API_URL}/seahawks/${tempSeahawk._id}`)
       .then(res => {
         expect(res.status).toEqual(200);
       });
