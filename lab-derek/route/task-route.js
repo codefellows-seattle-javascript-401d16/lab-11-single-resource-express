@@ -2,19 +2,19 @@
 
 const Router = require('express').Router;
 const jsonParser = require('body-parser').json();
-const task = require('../model/task.js');
+const Task = require('../model/task.js');
 
 let taskRouter = module.exports = new Router();
 
 taskRouter.post('/api/tasks', jsonParser, (req, res, next) => {
-  console.log('hit /api/tasks')
+  console.log('hit /api/tasks');
 
   req.body.created = new Date();
 
   new Task(req.body)
   .save()
   .then(task = res.json(task))
-  .catch(task);
+  .catch(next);
 });
 
 taskRouter.get('/api/tasks:id', (req, res, next) => {

@@ -18,19 +18,22 @@ mongoose.connect(process.env.MONGODB_URI);
 let server;
 const app = express();
 
-//load middleware
-//load routes
-
-app.get('api/hello/', (req, res, next) => {
-  res.send('hello world');
-});
-
 app.use(require('../route/task-route.js'));
+
+//load middleware
+// //load routes
+//
+// app.get('api/hello/', (req, res, next) => {
+//   res.send('hello world');
+// });
+//
+
 
 //load error handler
 
 app.use((err, req, res, next) => {
-  res.sendStatus(404);
+  console.log('err', err);
+  res.sendStatus(500);
 });
 
 //export server
@@ -38,7 +41,7 @@ app.use((err, req, res, next) => {
 const serverControl = module.exports;
 
 serverControl.start = () => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     server = app.listen(process.env.PORT, () => {
       console.log('server up', process.env.PORT);
       server.isOn = true;
@@ -48,7 +51,7 @@ serverControl.start = () => {
 };
 
 serverControl.stop = () => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     server.close(() => {
       server.isOn = false;
       console.log('server down');
