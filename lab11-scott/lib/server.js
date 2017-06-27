@@ -2,7 +2,11 @@
 
 const express = require('express');
 const app = express();
-
+const mongoose = require('mongoose');
+//configure mongoose
+mongoose.Promise = Promise;
+//connecting mongoose to mongodb
+mongoose.connect(process.env.MONGODB_URI);
 let server;
 
 const serverControl = module.exports = {};
