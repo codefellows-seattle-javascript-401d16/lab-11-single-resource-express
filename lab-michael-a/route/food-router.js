@@ -7,7 +7,17 @@ const Food = require('../model/food.js');
 let foodRouter = module.exports = new Router();
 
 foodRouter.post('/api/foods', jsonParser, (req, res, next) => {
-  // console.log('hit /api/foods');
+  // console.log('req.body^^^^^^',req.body);
+  // console.log(req.body.type);
+  if (req.body.type===undefined){
+    res.writeHead(400, {
+      'Content-Type':'plain/text',
+    });
+    res.write('file not found');
+    // res.end();
+    return;
+  }
+
 
   req.body.timeStamp = new Date();
   // console.log('this is req.body!!!!',req.body);

@@ -24,7 +24,7 @@ app.use(require('../route/food-router.js'));
 
 // loader err handler
 app.use((err,req,res,next) => {
-  console.log('err', err);
+  // console.log('err', err);
   res.sendStatus(500);
 });
 
