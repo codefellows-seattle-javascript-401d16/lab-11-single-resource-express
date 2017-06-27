@@ -10,4 +10,4 @@ const birthSchema = mongoose.Schema({
   country: {type:String},
 });
 
-module.exports = mongoose.model('note', birthSchema);
+module.exports = mongoose.model('note', birthSchema); //first arg = name of collection in db
