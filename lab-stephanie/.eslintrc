@@ -15,7 +15,6 @@
     "no-console": "off",
     "indent": [ "error", 2 ],
     "semi": ["error", "always"],
-    "comma-dangle": ["error", "always-multiline"],
     "quotes": ["error", "single", { "allowTemplateLiterals": true }]
   },
   "parserOptions": {
