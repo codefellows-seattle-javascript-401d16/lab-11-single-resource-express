@@ -18,3 +18,25 @@ app.use((err, req, res, next) => {
   }
   res.sendStatus(err.status);
 });
+
+const serverControl = module.exports = {};
+
+serverControl.start = () => {
+  return new Promise((resolve) => {
+    server = app.listen(process.env.PORT, () => {
+      console.log('the server is up', process.env.PORT);
+      server.isOn = true;
+      resolve();
+    });
+  });
+};
+
+serverControl.stop = () => {
+  return new Promise((resolve) => {
+    server.close(() => {
+      console.log('the server is down');
+      server.isOn = false;
+      resolve();
+    });
+  });
+};
