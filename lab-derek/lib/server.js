@@ -18,16 +18,7 @@ mongoose.connect(process.env.MONGODB_URI);
 let server;
 const app = express();
 
-app.use(require('../route/task-route.js'));
-
-//load middleware
-// //load routes
-//
-// app.get('api/hello/', (req, res, next) => {
-//   res.send('hello world');
-// });
-//
-
+app.use(require('../route/task-router.js'));
 
 //load error handler
 
