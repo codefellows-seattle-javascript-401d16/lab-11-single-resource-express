@@ -11,6 +11,7 @@ const app = express();
 app.get('/api/hello', (req, res, next) => {
   res.send('hello World');
 });
+app.use(require('../route/user-router.js'));
 
 const serverControl = module.exports = {};
 
