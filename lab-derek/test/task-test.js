@@ -23,6 +23,7 @@ describe('Testing note-routes', () => {
       expect(res.body._id).toExist();
       expect(res.body.content).toEqual('please fail this test');
       expect(res.body.created).toExist();
+      tempTask = res.body;
     });
   });
 });
