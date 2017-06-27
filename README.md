@@ -3,7 +3,7 @@
 
 # To Submit this Assignment
   * fork this repository
-  * write all of your code in a directory named `lab-` + `<your name>` **e.g.** `lab-duncan`
+  * write all of your code in a directory named `lab-` + `<your name>` **e.g.** `lab-duncan` DONE
   * push to your repository
   * submit a pull request to this repository
   * submit a link to your PR in canvas
@@ -11,27 +11,27 @@
 
 # Build Tool Instructions
 * create a package.json that lists all dependencies and developer dependencies
-* include an .eslintrc
-* include a .gitignore
-* include a readme with a project description
+* include an .eslintrc DONE
+* include a .gitignore DONE
+* include a readme with a project description DONE
   * how to install
   * how to start the server
   * document the routes
-* include a package.json 
-  * have a lint script for running eslint
-  * have a test script for running mocha
-  * start script for running your server
-  * have a start-db script for running mongod
-  * have a stop-db script for stoping mongod
+* include a package.json
+  * have a lint script for running eslint DONE
+  * have a test script for running mocha DONE
+  * start script for running your server DONE
+  * have a start-db script for running mongod DONE
+  * have a stop-db script for stoping mongod DONE
 
 # Directions
 * Create these directories to organize your code:
- * lib
- * model
- * route
- * db 
- * test
-* Create a HTTP Server using `express`
+ * lib DONE
+ * model DONE
+ * route DONE
+ * db DONE
+ * test DONE
+* Create a HTTP Server using `express` DONE
 * Create a Object Constructor using mongoose that creates a _resource_ with at least 3 properties
  * it can not have the same properties as the in class sample code
  * Also include two other properties of your choice (like name, creationDate, etc.)
@@ -44,9 +44,9 @@
 
 ### `/api/resource-name/:id`
 * `GET` request
- * pass the id of a resource though the query string to fetch a resource   
+ * pass the id of a resource though the query string to fetch a resource  DONE
 * `PUT` request
- * pass data as stringified json in the body of a put request to update a resource
+ * pass data as stringified json in the body of a put request to update a resource DONE
 * `DELETE` request
  * pass the id of a resource though the query string to delete a resource   
 
@@ -54,10 +54,10 @@
 * your tests should start your server when they begin and stop your server when they finish
 * write a test to ensure that your api returns a status code of 404 for routes that have not been registered
 * write tests to ensure your `/api/resource-name` endpoint responds as described for each condition below:
- * `GET` - test 404, responds with 'not found' for valid request made with an id that was not found
- * `GET` - test 200, response body like `{<data>}` for a request made with a valid id
- * `PUT` - test 200, response body like  `{<data>}` for a post request with a valid body
- * `POST` - test 200, response body like  `{<data>}` for a post request with a valid body
+ * `GET` - test 404, responds with 'not found' for valid request made with an id that was not found --DONE
+ * `GET` - test 200, response body like `{<data>}` for a request made with a valid id DONE
+ * `PUT` - test 200, response body like  `{<data>}` for a post request with a valid body DONE
+ * `POST` - test 200, response body like  `{<data>}` for a post request with a valid body DONE
  * `POST` - test 400, with an invalid request body
 
 ## Bonus
