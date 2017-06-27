@@ -11,7 +11,7 @@ let server;
 
 const serverControl = module.exports = {};
 
-app.use(require('../route/note-router.js'));
+app.use(require('../route/minion-router.js'));
 
 app.use((err, req, res, next) => {
   res.sendStatus(500);
@@ -21,7 +21,7 @@ app.use((err, req, res, next) => {
 serverControl.start = () => {
   return new Promise((resolve) => {
     server = app.listen(process.env.PORT, () => {
-      console.log('server up', process.env.PORT);
+      console.log('server churning out minions on PORT:', process.env.PORT);
       server.isOn = true;
       resolve();
     });
@@ -31,7 +31,7 @@ serverControl.start = () => {
 serverControl.stop = () => {
   return new Promise((resolve) => {
     server.close(() => {
-      console.log('server down');
+      console.log('server down, I repeat SERVER DOWN!');
       server.isOn = false;
       resolve();
     });
