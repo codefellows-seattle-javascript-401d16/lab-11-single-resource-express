@@ -12,6 +12,7 @@ const app = express();
 app.use(require('../route/waypoint-router.js'));
 
 app.use((err, req, res, next) => {
+  if(!req.body.name || !req.body.lat || !req.body.long) return res.sendStatus(400);
   res.sendStatus(500);
 });
 
