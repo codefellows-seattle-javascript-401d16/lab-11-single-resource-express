@@ -18,7 +18,7 @@ describe('Testing profile routes', () => {
         superagent.post(`${API_URL}/api/profile`)
         .send({firstName: 'Scott', nickName: 'Dingo', age:25})
         .then(res => {
-          expect(res.status).toEqual(202);
+          expect(res.status).toEqual(200);
           expect(res.body.firstName).toEqual('Scott');
           expect(res.body.nickName).toEqual('Dingo');
           expect(res.body.age).toEqual(25);
