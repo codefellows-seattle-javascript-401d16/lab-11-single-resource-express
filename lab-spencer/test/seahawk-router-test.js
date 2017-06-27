@@ -13,6 +13,14 @@ describe('/api/seahawks routes', () => {
   before(server.start);
   after(server.stop);
 
+  describe('testing nonexistent endpoint', () => {
+    it('Should respond 404', () => {
+      return superagent.get(`${API_URL}/falcons`)
+      .catch(res => {
+        expect(res.status).toEqual(404);
+      });
+    });
+  });
   describe('testing POST /api/seahawks', () => {
     it('Should respond 200 with the posted player', () => {
       return superagent.post(`${API_URL}/seahawks`)
