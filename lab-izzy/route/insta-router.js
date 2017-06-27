@@ -1,6 +1,8 @@
 'use strict';
 
 const Router = require('express').Router;
+// new way to require router
+const {Router} = require('express'); 
 const jsonParser = require('body-parser').json();
 const Insta = require('../model/insta.js');
 
