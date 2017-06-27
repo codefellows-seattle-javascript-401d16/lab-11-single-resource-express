@@ -23,7 +23,7 @@ articleRouter.get('/api/articles/:id', (req, res, next) => {
 });
 
 articleRouter.get('/api/articles/', (req, res, next) => {
-  Article.find({'_id': {$in: [Schema.Article]}})
+  Article.find({}, '_id')
   .then(article => res.json(article))
   .catch(next);
 });
