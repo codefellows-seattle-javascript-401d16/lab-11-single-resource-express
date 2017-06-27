@@ -19,6 +19,21 @@ sofaRouter.post('/api/sofas', jsonParser, (req, res) => {
     });
 });
 
+sofaRouter.get('/api/sofas', (req, res) => {
+
+  console.log('Received GET to /api/sofas');
+
+  Sofa.find({})
+    .then(sofas => sofas.map(sofa => sofa._id))
+    .then(ids => res.status(200).json(ids))
+    /* istanbul ignore next */
+    .catch(err => {
+      /* istanbul ignore next */
+      res.status(500)
+        .send(err);
+    });
+});
+
 sofaRouter.get('/api/sofas/:id', (req, res) => {
 
   console.log('Received GET to /api/sofas/:id');
@@ -28,12 +43,17 @@ sofaRouter.get('/api/sofas/:id', (req, res) => {
     .catch(() => res.status(404).send());
 });
 
-sofaRouter.put('/api/sofas/:id', (req, res) => {
+sofaRouter.put('/api/sofas/:id', jsonParser, (req, res) => {
 
   console.log('Received PUT to /api/sofas/:id');
 
-  Sofa.findByIdAndUpdate(req.params.id, req.body)
-    .then(sofa => res.status(202).json(sofa))
+  console.log(req.body);
+  Sofa.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    .then(sofa => {
+      console.log('updated sofa: ');
+      console.log(sofa);
+      res.status(202).json(sofa);
+    })
     .catch(() => res.status(404).send());
 });
 

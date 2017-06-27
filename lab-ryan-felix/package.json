@@ -6,7 +6,9 @@
   "scripts": {
     "test": "nyc mocha",
     "lint": "./configtest.sh && eslint ./",
-    "start": "node index.js"
+    "start": "node index.js",
+    "start-db": "mongod --dbpath ./db",
+    "stop-db": "killall mongod"
   },
   "keywords": [],
   "author": "",
