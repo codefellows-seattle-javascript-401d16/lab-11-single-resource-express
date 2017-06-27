@@ -49,8 +49,12 @@ describe('testing beer routes', () => {
           expect(res.body.created).toEqual(tempBeer.created);
         });
     });
-    it('should respond with a 404 error code if an ID is not found.', () => {
-      return request.get(`${API_URL}/api/beers/12345`)
+    it('should respond with a 200 status code and an array of IDs for all beer objects preseent in the DB.', () => {
+      return request.get(`${API_URL}/api/beers`)
+        .then(res => {
+          expect(res.status).toEqual(200);
+          expect(Array.isArray(res.body)).toEqual(true);
+        })
         .catch(err => {
           expect(err.status).toEqual(404);
         });

@@ -20,6 +20,17 @@ beerRouter.post('/api/beers', jsonParser, (req, res) => {
     });
 });
 
+beerRouter.get('/api/beers', (req, res) => {
+  console.log('hit /api/beers');
+
+  Beer.find()
+    .then(beers => beers.map(beer => beer._id))
+    .then(ids => res.status(200).json(ids))
+    .catch(err => {
+      res.status(404)
+        .send(err);
+    });
+});
 
 beerRouter.get('/api/beers/:id', (req, res) => {
   console.log('hit /api/beers/:id');
@@ -47,6 +58,18 @@ beerRouter.delete('/api/beers/:id', (req, res) => {
   console.log('hit /api/beers/:id');
 
   Beer.findByIdAndRemove(req.params.id)
+    .then(() => res.status(204).send('deleted'))
+    .catch(err => {
+      res.status(404)
+        .send(err);
+    });
+});
+
+//secret method to delete all beer objects from DB
+beerRouter.delete('/api/beers', (req, res) => {
+  console.log('hit /api/beers');
+
+  Beer.remove()
     .then(() => res.status(204).send('deleted'))
     .catch(err => {
       res.status(404)
