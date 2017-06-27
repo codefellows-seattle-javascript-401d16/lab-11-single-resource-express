@@ -8,7 +8,7 @@ const server = require('../lib/server.js');
 
 const API_URL =  `http://localhost:${process.env.PORT}`;
 
-let tempNote;
+let tempUser;
 
 describe('testing user routes', ()=>{
   before(server.start);
@@ -23,7 +23,32 @@ describe('testing user routes', ()=>{
           expect(res.body._id).toExist();
           expect(res.body.fname).toEqual('oscar');
           expect(res.body.lname).toEqual('cauich');
-          tempNote = res.body;
+          tempUser = res.body;
+        });
+    });
+  });
+
+  describe('testing GET /api/user', () => {
+    it('should respond with a user', () => {
+      return superagent.get(`${API_URL}/api/user/${tempUser._id}`)
+        .then(res => {
+          expect(res.status).toEqual(200);
+          expect(res.body._id).toEqual(tempUser._id);
+          expect(res.body.fname).toEqual('oscar');
+          expect(res.body.lname).toEqual('cauich');
+        });
+    });
+  });
+  describe('testing PUT /api/user', () => {
+    it('should update user', () => {
+      return superagent.put(`${API_URL}/api/user/${tempUser._id}`)
+        .send({fname: 'jorge', lname: 'lopez'})
+        .then(res => {
+          expect(res.status).toEqual(200);
+          expect(res.body._id).toEqual(tempUser._id);
+          expect(res.body.fname).toEqual('jorge');
+          expect(res.body.lname).toEqual('lopez');
+          tempUser = res.body;
         });
     });
   });
