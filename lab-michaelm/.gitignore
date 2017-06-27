@@ -4,7 +4,7 @@ db/
 build/
 
 .env
-test.env
+.test.env
 
 ### OSX ###
 .DS_Store

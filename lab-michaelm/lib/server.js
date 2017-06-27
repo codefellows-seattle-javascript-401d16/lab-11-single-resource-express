@@ -11,31 +11,34 @@ const app = express();
 
 app.use(require('../route/team-router.js'));
 
-app.use((err, req, res, next) => {
-  if(!err){
-    res.sendStatus(500);
-  }
-  res.sendStatus(err.status);
-});
+app.use(require('./error-middleware.js'));
 
-const serverOnOff = module.exports = {};
+const serverControl = module.exports = {};
 
-serverOnOff.start = () => {
-  return new Promise((resolve) => {
-    server = app.listen(process.env.PORT, () =>{
-      console.log('Server is now up on port: ', process.env.PORT);
-      server.isOn = true;
-      resolve();
-    });
+serverControl.start = () => {
+  return new Promise((resolve, reject) => {
+    if(!server) {
+      server = app.listen(process.env.PORT, () =>{
+        console.log('Server is now up on port: ', process.env.PORT);
+        server.isOn = true;
+        resolve();
+      });
+      return;
+    }
+    reject();
   });
 };
 
-serverOnOff.stop = () => {
-  return new Promise((resolve) => {
-    server.close(() => {
-      console.log('Server is now offline');
-      server.isOn = false;
-      resolve();
-    });
+serverControl.stop = () => {
+  return new Promise((resolve, reject) => {
+    if(server && server.isOn) {
+      server.close(() => {
+        console.log('Server is now offline');
+        server.isOn = false;
+        resolve();
+      });
+      return;
+    }
+    reject();
   });
 };

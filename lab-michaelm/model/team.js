@@ -2,11 +2,10 @@
 
 const mongoose = require('mongoose');
 
-// define a schema for the model
 const teamSchema = mongoose.Schema( {
   firstName: {type:String, required: true},
   lastName: {type: String, required: true},
-  availabilityDates: [{type: Date, required: true}],
+  availabilityDate: {type: String, required: true},
   submitted: {type: Date, default: Date.now},
 });
 
