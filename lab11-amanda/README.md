@@ -18,11 +18,11 @@
   * how to start the server
   * document the routes
 * include a package.json
-  * have a lint script for running eslint
-  * have a test script for running mocha
+  <!-- * have a lint script for running eslint -->
+  <!-- * have a test script for running mocha -->
   * start script for running your server
-  * have a start-db script for running mongod
-  * have a stop-db script for stoping mongod
+  <!-- * have a start-db script for running mongod
+  * have a stop-db script for stoping mongod -->
 
 # Directions
 <!-- * Create these directories to organize your code:
@@ -32,11 +32,11 @@
  * db
  * test -->
 <!-- * Create a HTTP Server using `express` -->
-* Create a Object Constructor using mongoose that creates a _resource_ with at least 3 properties
- * it can not have the same properties as the in class sample code
- * Also include two other properties of your choice (like name, creationDate, etc.)
-* use the `body-parser` express middleware to on `POST` and `PUT` routes
-* save your data using the storage module with file system persistence from last week
+<!-- * Create a Object Constructor using mongoose that creates a _resource_ with at least 3 properties -->
+ <!-- * it can not have the same properties as the in class sample code -->
+ <!-- * Also include two other properties of your choice (like name, creationDate, etc.) -->
+<!-- * use the `body-parser` express middleware to on `POST` and `PUT` routes -->
+* save your data using the storage module with Mongo DB
 
 ## Server Endpoints
 ### `/api/resource-name`

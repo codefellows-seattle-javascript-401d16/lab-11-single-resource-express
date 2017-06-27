@@ -2,21 +2,19 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
-
 mongoose.Promise = Promise;
-mongoose.connect(process.env.MONGOD_URI);
-
+mongoose.connect(process.env.MONGODB_URI);
 
 let server;
 const app = express();
 
-app.get('api/hello/' , (req, res, next) => {
+app.get('/api/hello', (req, res, next) => {
   res.send('hello world');
 });
 
-app.use(reuire('../route/note-router.js'));
+app.use(require('../route/note-router.js'));
 
-app.use((err, req, res, next) => {
+app.use((err,req,res,next) => {
   res.sendStatus(500);
 });
 
@@ -32,12 +30,12 @@ serverControl.start = () => {
   });
 };
 
-serverControl.stop = () =>  {
+serverControl.stop = () => {
   return new Promise((resolve) => {
     server.close(() => {
       console.log('server down');
       server.isOn = false;
-      reslove();
+      resolve();
     });
   });
 };

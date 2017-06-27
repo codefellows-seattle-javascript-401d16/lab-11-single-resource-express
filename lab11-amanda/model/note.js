@@ -1,10 +1,20 @@
-'use strict'
+'use strict';
 
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-const noteSchema = mongoose.Schema({
-  content: {type:Sting, required: true}
-  created: {type:Date, required: true}
-})
+// define a schema for your model
+// const noteSchema = mongoose.Schema({
+//   content: {type:String, required: true},
+//   created: {type:Date, required: true},
+// });
 
-module.exports = mongoose.model('note', noteSchema)
+const birthSchema = mongoose.Schema({
+  name: {type:String, required: true},
+  birthday: {type:Date},
+  city: {type:String},
+  state: {type:String},
+  country: {type:String},
+});
+
+
+module.exports = mongoose.model('note', birthSchema);
