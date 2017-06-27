@@ -5,7 +5,6 @@ require('dotenv').config({path: `${__dirname}/../.env`});
 const superagent = require('superagent');
 const expect = require('expect');
 const server= require('../lib/server.js');
-
 const API_URL = `http://localhost:${process.env.PORT}`;
 let tempHero;
 
@@ -86,7 +85,7 @@ describe('testing hero routes', () => {
     it('should delete the hero', () => {
       return superagent.delete(`${API_URL}/api/heros/${tempHero._id}`)
       .then(res => {
-        expect(res.status).toEqual(200);
+        expect(res.status).toEqual(204);
       });
     });
   });
