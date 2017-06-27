@@ -1,0 +1,32 @@
+{
+  "name": "lab11-amanda",
+  "version": "1.0.0",
+  "description": "![cf](https://i.imgur.com/7v5ASc8.png) lab 11 single resource express api ======",
+  "main": "index.js",
+  "directories": {
+  "test": "test"
+},
+  "scripts": {
+    "test": "mocha",
+    "start-db":"mkdir -p ./db && mongod --dbpath ./db",
+    "stop-db": "killall mongod",
+    "start": "node index.js"
+  },
+
+  "author": "",
+  "license": "ISC",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "expect": "^1.20.2",
+    "superagent": "^3.5.2"
+  },
+  "devDependencies": {
+    "body-parser": "^1.17.2",
+    "dotenv": "^4.0.0",
+    "http-errors": "^1.6.1",
+    "mocha": "^3.4.2",
+    "mongoose": "^4.11.0"
+  }
+}
