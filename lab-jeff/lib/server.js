@@ -7,10 +7,12 @@ mongoose.Promise = Promise;
 
 mongoose.connect(process.env.MONGODB_URI);
 
+let app = express();
 let server;
-const app = express();
 
 app.use(require('../route/movies-router.js'));
+
+app.use(require('./error-middleware.js'));
 
 app.use((err, req, res, next) => {
   if(!err) {

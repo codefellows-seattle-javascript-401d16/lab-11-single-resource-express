@@ -6,7 +6,7 @@ const movieSchema = mongoose.Schema( {
   title: {type: String, required: true},
   year: {type: String, required: true},
   genre: {type: String, required: true},
-  created: {type: Date, required: true},
+  timestamp: {type: Date, default: Date.now},
 });
 
-module.exports = mongoose.model('movies', movieSchema);
+const Movie = module.exports = mongoose.model('movie', movieSchema);
