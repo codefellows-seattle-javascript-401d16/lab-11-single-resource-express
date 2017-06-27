@@ -13,7 +13,7 @@ describe('testing note routes', () => {
 
   describe('test POST /api/notes',() => {
     it('should respond with a note', () => {
-      return superagent.post(`${API_URL}/api/notes`)
+      superagent.post(`${API_URL}/api/notes`)
       .send({name: 'amanda'})
       .then(res => {
         expect(res.status).toEqual(200);
@@ -24,6 +24,16 @@ describe('testing note routes', () => {
     });
   });
 
+  describe('test POST /api/notes',() => {
+    it('should respond with 400', () => {
+      superagent.post(`${API_URL}/api/notes`)
+      .send({})
+      .catch(err => {
+        expect(err.status).toEqual(400);
+      });
+    });
+  });
+  //GET
   describe('testing GET /api/note', () => {
     it('should respond with a note', () => {
       return superagent.get(`${API_URL}/api/notes/${tempNote._id}`)
@@ -34,20 +44,32 @@ describe('testing note routes', () => {
       });
     });
   });
-});
 
-describe('testing PUT /api/note', () => {
-  it('should respond with an updated note', () => {
-    return superagent.put(`${API_URL}/api/notes/${tempNote._id}`)
+  //404
+  describe('testing wDELETE /api/note', () => {
+    it('should delete a note', () => {
+      superagent.get(`${API_URL}/no/id`)
+    .then(err => {
+      expect(err.status).toBe(404);
+    });
+    });
+  });
+
+//PUT
+  describe('testing PUT /api/note', () => {
+    it('should respond with an updated note', () => {
+      return superagent.delete(`${API_URL}/api/notes/${tempNote._id}`)
     .then(res => {
       expect(res.staus).toEqual(200);
-      expect(res.body.id).toEqual(tempNote._id);
-      expect(res.body.name).toEqual('patricia');
-      tempNote = res.body;
+      expect(res.body).toEqual({});
+      expect(res.body.name).toEqual('deleted name');
+      expect(res.body.created).toEqual(undefined);
+    });
     });
   });
 });
-//
+
+//DELETE
 // describe('testing DELETE /api/note', () => {
 //   it('should reposnd with a deleted note', () => {
 //     return superagent.delete(`${API_URL}/api/notes/${tempNote}`)
