@@ -1,26 +1,55 @@
 'use strict';
 
 const Router = require('express').Router;
-const jsonParser = require('body-parser');
+const jsonParser = require('body-parser').json();
 const Beer = require('../model/beer.js');
 
 let beerRouter = module.exports = new Router();
 
-beerRouter.post('/api/beers', jsonParser, (req, res, next) => {
+beerRouter.post('/api/beers', jsonParser, (req, res) => {
   console.log('hit /api/beers');
 
   req.body.created = new Date();
 
   new Beer(req.body)
     .save()
-    .then(beer => res.json(beer))
-    .catch(next);
+    .then(beer => res.status(201).json(beer))
+    .catch(err => {
+      res.status(400)
+        .send(err);
+    });
 });
 
-beerRouter.get('/api/beers:id', (req, res, next) => {
-  console.log('hit /api/beers:id');
+
+beerRouter.get('/api/beers/:id', (req, res) => {
+  console.log('hit /api/beers/:id');
 
   Beer.findById(req.params.id)
-    .then(beer => res.json(beer))
-    .catch(next);
+    .then(beer => res.status(200).json(beer))
+    .catch(err => {
+      res.status(404)
+        .send(err);
+    });
+});
+
+beerRouter.put('/api/beers/:id', jsonParser, (req, res) => {
+  console.log('hit /api/beers/:id');
+
+  Beer.findByIdAndUpdate(req.params.id, req.body, {new: true})
+    .then(beer => res.status(202).json(beer))
+    .catch(err => {
+      res.status(404)
+        .send(err);
+    });
+});
+
+beerRouter.delete('/api/beers/:id', (req, res) => {
+  console.log('hit /api/beers/:id');
+
+  Beer.findByIdAndRemove(req.params.id)
+    .then(() => res.status(204).send('deleted'))
+    .catch(err => {
+      res.status(404)
+        .send(err);
+    });
 });

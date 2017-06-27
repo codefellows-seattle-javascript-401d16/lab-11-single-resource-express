@@ -4,7 +4,7 @@
   "description": "![cf](https://i.imgur.com/7v5ASc8.png) lab 11 single resource express api ======",
   "main": "index.js",
   "scripts": {
-    "start-db": "mkdir -p ./db && mongod -dpath ./db",
+    "start-db": "mkdir -p ./db && mongod -dbpath ./db &",
     "stop-db": "killall mongod",
     "test": "mocha",
     "start": "node index.js",
