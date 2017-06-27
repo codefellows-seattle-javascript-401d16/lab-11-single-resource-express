@@ -2,11 +2,10 @@
 
 const mongoose = require('mongoose');
 
-// define a schema for your model
 const articleSchema = mongoose.Schema({
   title: {type:String, required: true},
-  author: {type:Date, required: true},
+  author: {type:String, required: true},
+  created: {type:Date, default: new Date, required: true},
 });
 
-// export a model
 module.exports = mongoose.model('article', articleSchema);

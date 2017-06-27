@@ -2,6 +2,7 @@
 
 db/
 .env
+.test.env
 build/
 node-modules
 
