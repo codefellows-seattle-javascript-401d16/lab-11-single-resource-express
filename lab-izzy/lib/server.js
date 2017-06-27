@@ -14,7 +14,7 @@ const app = express();
 app.use(require('../route/insta-router.js'));
 
 app.use((err, req, res, next) => {
-  res.sendStatus(404);
+  res.sendStatus(500);
 });
 
 const serverControl = module.exports = {};

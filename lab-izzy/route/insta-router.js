@@ -7,7 +7,6 @@ const Insta = require('../model/insta.js');
 let instaRouter = module.exports = new Router();
 
 instaRouter.post('/api/instas', jsonParser, (req, res, next) => {
-  console.log('hit /api/instas');
 
   req.body.created = new Date();
 
