@@ -6,36 +6,42 @@ const expect = require('expect');
 const server = require('../lib/server.js');
 const Movie = require('../model/movies.js');
 
-const API_URL = process.env.API_URL;
 let tempMovie;
+const API_URL = process.env.API_URL;
 
 describe('testing movies routes', () => {
   before(server.start);
   after(server.stop);
 
   describe('test POST /api/movies', () => {
+    after(() => Movie.remove({}));
+
+    let data = {
+      title: 'The Departed',
+      year: '2006',
+      genre: 'thriller',
+    };
+
     it('should respond with a movie and 200 status', () => {
       return superagent.post(`${API_URL}/api/movies`)
-      .send({title: 'The Departed', year: '2006', genre: 'thriller'})
+      .send(data)
       .then(res => {
         expect(res.status).toEqual(200);
         expect(res.body._id).toExist();
-        expect(res.body.title).toEqual('The Departed');
-        expect(res.body.year).toEqual('2006');
-        expect(res.body.genre).toEqual('thriller');
-        expect(res.body.timestamp).toExist();
-        tempMovie = res.body;
+        expect(res.body.title).toEqual(data.title);
+        expect(res.body.year).toEqual(data.year);
+        expect(res.body.genre).toEqual(data.genre);
       });
     });
     it('should reply with a 400', () => {
       return superagent.post(`${API_URL}/api/movies`)
-      .catch(err => {
-        expect(err.status).toEqual(400);
+      .catch(res => {
+        expect(res.status).toEqual(400);
       });
     });
   });
 
-  describe('test GET /api/movies', () => {
+  describe('test GET /api/movies/:id', () => {
     afterEach(() => Movie.remove({}));
     beforeEach(() => {
       return new Movie({
@@ -43,7 +49,8 @@ describe('testing movies routes', () => {
         year: '2006',
         genre: 'thriller',
       })
-      .save(movie => {
+      .save()
+      .then(movie => {
         tempMovie = movie;
       });
     });
@@ -55,8 +62,6 @@ describe('testing movies routes', () => {
       expect(res.body.title).toEqual(tempMovie.title);
       expect(res.body.year).toEqual(tempMovie.year);
       expect(res.body.genre).toEqual(tempMovie.genre);
-      expect(res.body.timestamp).toExist();
-      tempMovie = res.body;
     });
     });
 
@@ -68,27 +73,51 @@ describe('testing movies routes', () => {
     });
   });
 
-  describe('test PUT /api/movies', () => {
+  describe('test PUT /api/movies/:id', () => {
+    afterEach(() => Movie.remove({}));
+    beforeEach(() => {
+      return new Movie({
+        title: 'The Departed',
+        year: '2006',
+        genre: 'thriller',
+      })
+      .save()
+      .then(movie => {
+        tempMovie = movie;
+      });
+    });
+
     it('should respond with an updated movie', () => {
       return superagent.put(`${API_URL}/api/movies/${tempMovie._id}`)
-      .send({title: 'The Departed', year: '2006', genre: 'drama'})
+      .send({genre: 'drama'})
       .then( res => {
         expect(res.status).toEqual(200);
-        expect(res.body._id).toExist();
-        expect(res.body.title).toEqual('The Departed');
-        expect(res.body.year).toEqual('2006');
+        expect(res.body._id).toEqual(tempMovie._id);
+        expect(res.body.title).toEqual(tempMovie.title);
+        expect(res.body.year).toEqual(tempMovie.year);
         expect(res.body.genre).toEqual('drama');
-        expect(res.body.timestamp).toExist();
-        tempMovie = res.body;
+
       });
     });
   });
-  describe('test DELETE /api/movies', () => {
+  describe('test DELETE /api/movies/:id', () => {
+    afterEach(() => Movie.remove({}));
+    beforeEach(() => {
+      return new Movie({
+        title: 'The Departed',
+        year: '2006',
+        genre: 'thriller',
+      })
+      .save()
+      .then(movie => {
+        tempMovie = movie;
+      });
+    });
+
     it('should delete a movie', () => {
       return superagent.delete(`${API_URL}/api/movies/${tempMovie._id}`)
       .then(res => {
         expect(res.status).toEqual(204);
-        expect(res.body).toEqual({});
       });
     });
   });

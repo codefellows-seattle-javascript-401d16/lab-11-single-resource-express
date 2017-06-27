@@ -14,13 +14,6 @@ app.use(require('../route/movies-router.js'));
 
 app.use(require('./error-middleware.js'));
 
-app.use((err, req, res, next) => {
-  if(!err) {
-    res.sendStatus(500);
-  }
-  res.sendStatus(err.status);
-});
-
 const serverControl = module.exports = {};
 
 serverControl.start = () => {
