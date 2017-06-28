@@ -1,6 +1,5 @@
 'use strict';
 
-
 const express = require('express');
 const mongoose = require('mongoose');
 
@@ -13,11 +12,9 @@ const app = express();
 
 app.use(require('../route/game-router.js'));
 
-
 app.use((err,req,res,next) => {
-  res.sendStatus(500);
+  res.sendStatus(400);
 });
-
 
 const serverControl = module.exports = {};
 
