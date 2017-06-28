@@ -7,11 +7,9 @@ const Article = require('../model/article.js');
 let articleRouter = module.exports = new Router();
 
 articleRouter.post('/api/articles', jsonParser, (req, res, next) => {
-  console.log('hit /api/articles');
-
   new Article(req.body)
     .save()
-    .then(article => res.json(article))
+    .then((article) => res.json(article))
     .catch(next);
 });
 

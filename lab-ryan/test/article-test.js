@@ -25,7 +25,8 @@ describe('testing article routes', () => {
 
   describe('testing GET /api/articles',() => {
     it('should respond with an article by id', () => {
-      return superagent.get(`${API_URL}/api/articles${tempArticle._id}`)
+      console.log(tempArticle._id);
+      return superagent.get(`${API_URL}/api/articles/${tempArticle._id}`)
     .then(res => {
       expect(res.status).toEqual(200);
       expect(res.body.title).toEqual(tempArticle.title);
@@ -46,7 +47,8 @@ describe('testing article routes', () => {
   });
   describe('testing PUT by id /api/articles',() => {
     it('should respond with an updated article by id', () => {
-      return superagent.put(`${API_URL}/api/articles${tempArticle._id}`)
+      return superagent.put(`${API_URL}/api/articles/${tempArticle._id}`)
+      .send({title: 'updatedtitle', author:'updatedauthor'})
     .then(res => {
       expect(res.status).toEqual(200);
       expect(res.body.title).toEqual('updatedtitle');
@@ -57,7 +59,7 @@ describe('testing article routes', () => {
   });
   describe('testing DELETE by id /api/articles',() => {
     it('should delete the article by id', () => {
-      return superagent.delete(`${API_URL}/api/articles${tempArticle._id}`)
+      return superagent.delete(`${API_URL}/api/articles/${tempArticle._id}`)
     .then(res => {
       expect(res.status).toEqual(200);
       expect(res.body).toEqual({});
@@ -68,8 +70,9 @@ describe('testing article routes', () => {
   });
   describe('testing to see if non-existant routes return 404',() => {
     it('should return 404', () => {
-      return superagent.get(`${API_URL}/api/!articles`)
-    .then((err) => {
+      return superagent.get(`${API_URL}/something-that-doesnt-exist`)
+    .then(() => {})
+    .catch((err) => {
       expect(err.status).toBe(404);
     });
     });
