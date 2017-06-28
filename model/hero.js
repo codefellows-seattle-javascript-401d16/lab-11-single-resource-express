@@ -3,11 +3,11 @@
 const mongoose = require('mongoose');
 
 const heroSchema = mongoose.Schema( {
-  hero: {type: String, required: true},
-  score: {type: Number, required: true},
-  player: {type: String, required: true},
-  team: {type: String, required: true},
-  dateCreated: {type: Date, required: true},
+  hero: {type: String},
+  score: {type: Number},
+  player: {type: String},
+  team: {type: String},
+  dateCreated: {type: Date},
 });
 
 module.exports = mongoose.model('hero', heroSchema);

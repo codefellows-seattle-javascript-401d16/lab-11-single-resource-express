@@ -22,7 +22,6 @@ heroRouter.get('/api/heros/:id', (req, res, next) => {
 });
 
 heroRouter.put('/api/heros/:id', jsonParser, (req, res, next) => {
-  console.log('hit', req.body, req.body._id);
   Hero.findByIdAndUpdate(req.params.id, req.body, {new: true})
   .then(hero => res.json(hero))
   .catch(next);

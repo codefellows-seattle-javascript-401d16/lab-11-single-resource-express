@@ -31,7 +31,6 @@ describe('Testing Hero routes', () => {
       return superagent.post(`${API_URL}/api/heros`)
       .send({})
       .catch(res => {
-        console.log(res.status);
         expect(res.status).toEqual(400);
       });
     });
@@ -75,8 +74,5 @@ describe('Testing Hero routes', () => {
         expect(res.status).toEqual(204);
       });
     });
-    // it('should respond with a 404 error', () => {
-    //   return superagent.delete(`${API_URL}/api/heros`)
-    // });
   });
 });
