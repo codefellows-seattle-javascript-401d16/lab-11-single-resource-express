@@ -12,7 +12,7 @@ const app = express();
 
 app.use(require('../route/game-router.js'));
 
-app.use((err,req,res,next) => {
+app.use((err,req,res,next) => { //eslint-disable-line
   res.sendStatus(400);
 });
 

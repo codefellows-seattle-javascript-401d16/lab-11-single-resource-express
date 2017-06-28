@@ -16,14 +16,13 @@ describe('testing gamescore routes', () => {
         .post(`${API_URL}/api/gamescore`)
         .send({
           name: 'Sonic',
-          score: '9000',
+          score: 9000,
         })
         .then(res => {
           expect(res.status).toEqual(200);
           expect(res.body._id).toExist();
           expect(res.body.name).toEqual('Sonic');
-          expect(res.body.score).toEqual('9000');
-          expect(res.body.created).toExist();
+          expect(res.body.score).toEqual(9000);
           tempGame = res.body;
         });
     });
@@ -43,8 +42,7 @@ describe('testing gamescore routes', () => {
           expect(res.status).toEqual(200);
           expect(res.body._id).toExist();
           expect(res.body.name).toEqual('Sonic');
-          expect(res.body.score).toEqual('9000');
-          expect(res.body.created).toExist();
+          expect(res.body.score).toEqual(9000);
         });
     });
     it('should respond with a 404 not found', () => {
@@ -60,12 +58,12 @@ describe('testing gamescore routes', () => {
         .put(`${API_URL}/api/gamescore/${tempGame._id}`)
         .send({
           name: 'Sonic the Hedgehog',
-          score: '19000',
+          score: 19000,
         })
         .then(res => {
           expect(res.status).toEqual(200);
           expect(res.body.name).toEqual('Sonic the Hedgehog');
-          expect(res.body.score).toEqual('19000');
+          expect(res.body.score).toEqual(19000);
         });
     });
   });
