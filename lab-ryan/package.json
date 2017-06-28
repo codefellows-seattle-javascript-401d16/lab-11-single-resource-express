@@ -2,15 +2,15 @@
   "name": "lab-ryan",
   "version": "1.0.0",
   "description": "",
-  "main": "node index.js",
+  "main": "index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "start-db": "mkdir -p ./db && mongod --dbpath ./db",
-    "stop-db": "killall mongod",
+    "test": "mocha",
     "start": "node index.js",
-    "test": "mocha"
+    "start-db": "mkdir -p ./db && mongod --dbpath ./db",
+    "stop-db": "killall mongod"
   },
   "keywords": [],
   "author": "",
