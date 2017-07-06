@@ -18,7 +18,7 @@ app.get('/api/hello', (req, res, next) => {
 });
 
 app.use(require('../route/car-store-router.js'));
-
+app.use(require('./error-middleware.js'));
 // loader err handler
 app.use((err, req, res, next) => {
   console.log('err', err);
