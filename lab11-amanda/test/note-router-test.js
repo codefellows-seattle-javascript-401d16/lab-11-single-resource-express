@@ -4,8 +4,10 @@ require('dotenv').config({path: `${__dirname}/../.env`});
 const superagent = require('superagent');
 const expect = require('expect');
 const server = require('../lib/server.js');
+const Note = require('../model/note.js');
 const API_URL = `http://localhost:${process.env.PORT}`;
 let tempNote;
+let data = {name: 'amanda'};
 
 describe('testing note routes', () => {
   before(server.start);
@@ -24,15 +26,26 @@ describe('testing note routes', () => {
         });
     });
     it('should respond with 400', () => {
-      superagent.post(`${API_URL}/api/notes`)
-        .catch(err => {
-          expect(err.status).toEqual(400);
+      return superagent.post(`${API_URL}/api/notes`)
+        .catch(res => {
+          expect(res.status).toEqual(400);
         });
     });
   });
 
   //GET
   describe('testing GET /api/note', () => {
+    var tempNote;
+
+    afterEach(() => Note.remove({}));
+    beforeEach(() => {
+      return new Note({name: 'Evan'})
+    .save()
+    .then(note => {
+      tempNote = note;
+    });
+    });
+
     it('should respond with a note', () => {
       return superagent.get(`${API_URL}/api/notes/${tempNote._id}`)
         .then(res => {
@@ -51,7 +64,6 @@ describe('testing note routes', () => {
           expect(err.status).toBe(404);
         });
     });
-  });
 
   //PUT
   describe('testing PUT /api/note', () => {
@@ -67,9 +79,10 @@ describe('testing note routes', () => {
   });
 });
 
-//DELETE
+
+// // DELETE
 // describe('testing DELETE /api/note', () => {
 //   it('should reposnd with a deleted note', () => {
-//     return superagent.delete(`${API_URL}/api/notes/${tempNote}`)
-//   })
-// })
+//     return superagent.delete(`${API_URL}/api/notes/${tempNote}`);
+//   });
+// });
