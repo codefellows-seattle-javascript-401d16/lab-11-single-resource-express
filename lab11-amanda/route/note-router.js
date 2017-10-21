@@ -21,22 +21,22 @@ noteRouter.post('/api/notes', jsonParser, (req, res, next) => {
 //GET
 noteRouter.get('/api/notes/:id', (req, res, next) => {
   Note.findById(req.params.id)
-  .then(note => res.json(note))
-  .catch(next);
+    .then(note => res.json(note))
+    .catch(next);
 });
 
 //PUT
 noteRouter.put('/api/notes/:id', jsonParser, (req, res, next) => {
   Note.findByIdAndUpdate(req.params.id, req.body, {new: true});
   console.log('hit PUT /api/notes/:id')
-  .then(note => res.json(note))
-  .catch(next);
+    .then(note => res.json(note))
+    .catch(next);
 });
 
 //DELETE
 noteRouter.put('/api/notes/:id', jsonParser, (req, res, next) => {
   Note.findByIdAndRemove(req.params.id);
   console.log('hit DELETE /api/notes/:id')
-  .then(note => res.send('deleted'))
-  .catch(next);
+    .then(note => res.send('deleted'))
+    .catch(next);
 });

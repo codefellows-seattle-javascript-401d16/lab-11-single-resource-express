@@ -20,7 +20,7 @@ const serverControl = module.exports = {};
 
 serverControl.start = () => {
   return new Promise((resolve) => {
-    server = app.listen(process.env.PORT, () => { //first time server is set
+    server = app.listen(process.env.PORT, () => { 
       console.log('server up', process.env.PORT);
       server.isOn = true;
       resolve();
